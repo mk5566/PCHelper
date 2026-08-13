@@ -14,9 +14,10 @@ Use the local inventory as the baseline, gather current evidence, and choose the
 3. **Non-destructive modification.** Before registry, services, drivers, scheduled tasks, BCD, or system files: follow `references/non-destructive-change.md` — restore point or backup, exact impact, prefer a change that cannot break unrelated apps/security/hardware, written rollback. Never call a change “safe” if it can leave the system inconsistent or less secure.
 4. **Visual, whole-system guidance.** User-facing steps follow `references/visual-guidance.md`: full Settings path, describe the live window (left nav, heading, controls top to bottom, dialogs). Capture the user’s real UI when possible. Never generate fake Settings screenshots.
 5. **Scope.** Everyday tasks; measured performance; privacy/security configuration the user asked for; updates and drivers; **storage and power optimization**; **common troubleshooting**. Full list: `visual-guidance.md` “Scope this project covers.”
-6. **Evidence, then action.** Separate observed facts, interpretation, recommendations, actions taken, and open questions. Verify after every change. Default is read-only until the user approves a named change.
-7. **Risk and privileges.** For every action (including read-only), surface risk level and required privileges using `references/risk-and-privileges.md`. High or Destructive work stops for approval.
-8. **Preserve intentional posture on this PC.** Microsoft Defender was deliberately removed. Do not run DISM `/RestoreHealth` or SFC without explicit acceptance that protected Defender files may return. Do not enable BitLocker until recovery-key storage is planned.
+6. **Modular and progressive.** SKILL.md is the procedure only. Load a `references/` file when that fact is needed (sources, reject list, restore points, Settings map, risk, editions). Do not copy those tables into a skill body.
+7. **Evidence, then action.** Separate observed facts, interpretation, recommendations, actions taken, and open questions. Verify after every change. Default is read-only until the user approves a named change.
+8. **Risk and privileges.** For every action (including read-only), surface risk level and required privileges using `references/risk-and-privileges.md`. High or Destructive work stops for approval.
+9. **Preserve intentional posture on this PC.** Microsoft Defender was deliberately removed. Do not run DISM `/RestoreHealth` or SFC without explicit acceptance that protected Defender files may return. Do not enable BitLocker until recovery-key storage is planned.
 
 Read `references/windows-tool-map.md` before choosing a diagnostic or repair command. Read `references/sources.md` before stating version, servicing, or platform-requirement facts.
 

@@ -7,17 +7,9 @@ description: Assess and change Windows 11 security posture using official contro
 
 Load `windows-pc-helper`. Default is report-only. Describe Windows Security and Privacy pages with `visual-guidance.md`. Any enable/disable of AV, BitLocker, VBS, Memory Integrity, firewall, BCD, or services follows `non-destructive-change.md` and is **never** labeled “safe.” Approval required.
 
-## Baseline on this PC (inventory 2026-08-13)
+## Baseline on this PC
 
-- Secure Boot: Enabled
-- TPM 2.0: present, ready, initialized; firmware not reported vulnerable
-- Firewall: Domain/Private/Public enabled
-- BitLocker on C:: off (admin scan 2026-08-12; 0% encrypted)
-- UAC: enabled; secure-desktop prompt **off**
-- Security Center antivirus: **none registered**
-- Defender: **intentionally absent**; `MDCoreSvc` stopped/disabled; platform EXE absent
-
-Do not “fix” Defender absence or turn BitLocker on as part of a generic hardening pass.
+Read `inventory/PC_PROFILE.md` Security snapshot (refresh if older than 30 days). Last known: Secure Boot on, TPM 2.0 ready, firewall all profiles on, BitLocker off, UAC on without secure desktop, **no** Security Center AV, Defender **intentionally absent**. Do not “fix” Defender absence or enable BitLocker in a generic hardening pass.
 
 ## Platform requirements (do not bypass)
 

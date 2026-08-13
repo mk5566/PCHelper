@@ -66,7 +66,7 @@ Always report:
 - likely interpretation and confidence
 - ruled-out items
 - next action
-- admin / restart needs
+- risk, privilege, and restart (`risk-and-privileges.md`)
 
 If the user wants a fix, hand off:
 

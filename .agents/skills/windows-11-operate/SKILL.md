@@ -5,64 +5,27 @@ description: Operate Windows 11 correctly across Home, Pro, Pro Education, Pro f
 
 # Windows 11 operate
 
-Load `windows-pc-helper` first. Read `windows-pc-helper/references/sources.md` before stating version or edition facts. Write every click-path with `windows-pc-helper/references/visual-guidance.md`. Re-fetch Learn release-health if the claim is date-sensitive.
+Load `windows-pc-helper` first. For build/edition/feature-update facts, open `windows-pc-helper/references/editions-and-versions.md` and `sources.md` — do not restate those tables. Click-paths: `visual-guidance.md`. Risk line: `risk-and-privileges.md`.
 
-## Identify the device
+## Identify, then advise
 
-```powershell
-Get-ComputerInfo | Select-Object WindowsProductName, WindowsVersion, OsBuildNumber, OsArchitecture, CsPCSystemType
-(Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion').DisplayVersion
-```
-
-| Build family | Version | Notes |
-|---|---|---|
-| 26100 | 24H2 | Current GAC + LTSC 2024 base. This PC’s 2026-08-13 inventory. |
-| 26200 | 25H2 | Same servicing train as 24H2; switched on by enablement package KB5054156. |
-| 28000 | 26H1 | **New devices only.** Not offered as an in-place update from 24H2 or 25H2. Do not tell a 24H2/25H2 user to “upgrade to 26H1”. |
-| 22631 | 23H2 | Home/Pro already past end of updates. Enterprise/Education date: `sources.md`. |
-
-Edition capabilities (do not invent others):
-
-- **Home:** Settings and built-in tools only. No Client Hyper-V, no BitLocker To Go, no gpedit/RDP *host*. OOBE needs internet + Microsoft account.
-- **Pro / Pro Education / Pro for Workstations:** Group Policy, Hyper-V (SLAT), BitLocker To Go, RDP host.
-- **Enterprise / Education:** 36-month feature-update support; hotpatch possible on 24H2/25H2 Enterprise.
-- **SE:** last supported feature version is 24H2.
-- **Enterprise LTSC 2024:** 24H2 only; no 25H2 enablement path.
-
-S mode exists only on Home. Leaving S mode requires internet and is one-way.
+Run the identify commands in `editions-and-versions.md`. This PC last inventoried as **24H2 / 26100 / Home**. Confirm before recommending 25H2.
 
 ## Feature updates
 
-1. Confirm build and edition.
-2. Check [Windows 11 release information](https://learn.microsoft.com/en-us/windows/release-health/windows11-release-information) and the version’s known-issues page for safeguard holds.
-3. Prefer **Settings > Windows Update**. Unmanaged Home/Pro devices get 25H2 through the intelligent rollout; “Check for updates” may surface **Download and install Windows 11, version 25H2**.
-4. 24H2 → 25H2 is a small enablement package and one restart once the 24H2 monthly baseline is current. Do not download a full ISO for that hop unless Windows Update cannot offer it.
-5. Do not install 26H1 onto existing 24H2/25H2 PCs.
-6. Do not use labconfig / `AllowUpgradesWithUnsupportedTPMOrCPU` / Rufus TPM bypass. Unsupported installs can lose future updates.
+Follow the rules in `editions-and-versions.md`. UI: Settings > **Windows Update** (`ms-settings:windowsupdate`) — status sentence, **Check for updates**, optional **Download and install Windows 11, version 25H2**, **Pause for 1 week**. Update history is a subpage.
 
-Pause updates only from Settings (max 35 days). Do not hide KBs without a named regression.
+`Risk: Low` (install offered update) or `Medium` (feature update) · `Privilege: Standard` (UAC if the package requires it) · `Restart: Yes` for 25H2.
 
-## Settings first
+## Everyday Settings
 
-Open **Start > Settings** (gear). Left nav stays visible. Prefer a named path over the Search box. Control Panel only when Settings has no equivalent (BitLocker To Go on Pro+, some power-plan links, Device Manager).
+Open **Start > Settings**. Left nav stays visible. Prefer a named path. Whole-pane layouts live in `visual-guidance.md` (Display, About, Accounts, Default apps, Optional features, Privacy & security).
 
-### Everyday surfaces (describe the whole pane)
-
-- **Display** — Settings > System > Display (`ms-settings:display`). Main pane title **Display**. Top: brightness slider (laptops), Night light row. Then **Scale & layout**: Scale dropdown, Display resolution, Display refresh rate. **Multiple displays** if more than one monitor (this PC has seen BenQ + LG HDR 4K). HDR / Auto HDR rows appear only on an HDR-capable panel. **Graphics** at the bottom opens the per-app GPU page. Three-column Snap needs ≥1920 effective pixels (Settings > System > Multitasking > Snap).
-- **About** — Settings > System > About. **Windows specifications** lists Edition, Version, OS build. **Related links → Advanced system settings** opens the old System Properties dialog (use this only when System Protection or performance visual effects need that dialog).
-- **Accounts** — Settings > Accounts. Your info, Sign-in options, Email & accounts. Do not collect or store MSA details.
-- **Default apps** — Settings > Apps > Default apps. Search an app or a file type (`.pdf`). Changing a default is reversible on the same page.
-- **Optional features** — Settings > System > Optional features. Installed list + **View features**. **More Windows features** opens `OptionalFeatures.exe` (legacy checklist; elevation). Do not remove Print to PDF, WCF, .NET 4 Advanced Services, or Windows Search on this PC without naming the lost function.
-- **WSL** — `wsl --status`. Not installed here; `wsl --install` only after approval.
-
-### Privacy (everyday, not AV)
-
-Settings > **Privacy & security** (`ms-settings:privacy`). Main pane groups: **Security** (opens Windows Security — that is `windows-11-security`), **Windows permissions** (General advertising/launch-tracking toggles, Speech, Inking & typing, Diagnostics & feedback, Activity history, Search), then **App permissions** (Location, Camera, Microphone, …). Change one permission the user named. Do not apply a “privacy pack” `.reg`. Diagnostics: **Required** vs **Optional** diagnostic data; sending less optional data is supported; turning off required diagnostics is not offered on Home.
-
-## Feature-update UI
-
-Settings > **Windows Update** (last item, left nav). Center: status sentence, **Check for updates**, optional **Download and install Windows 11, version 25H2**. **Pause for 1 week** under More options. Pause max is five weeks via the extra pause steps. Update history is a subpage, not a different app.
+- Change one named control. Undo is the same toggle.
+- Privacy: Settings > **Privacy & security**. Change one app permission the user named. No privacy-pack `.reg`. Optional diagnostic data can be reduced; required diagnostics cannot be turned off on Home.
+- Optional features: do not remove Print to PDF, WCF, .NET 4 Advanced Services, or Windows Search here without naming the lost function. `Risk: Medium` · `Privilege: Admin`.
+- WSL is not installed. `wsl --install` only after approval. `Risk: Medium` · `Privilege: Admin` · `Restart: likely`.
 
 ## Configuration changes
 
-Follow the `windows-pc-helper` change ladder. Prefer a Settings toggle the user can reverse. Do not ship `.reg` files for options that exist in Settings. Registry/service/optional-feature changes require `non-destructive-change.md`.
+Change ladder in `windows-pc-helper`. Prefer a Settings toggle. Registry/service/optional-feature edits require `non-destructive-change.md`.

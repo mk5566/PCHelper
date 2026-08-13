@@ -39,12 +39,7 @@ Record the top consumers and whether the device is on battery, Balanced/Best eff
 
 ## 3. Do not touch without a specific diagnosis
 
-- SysMain, Windows Search, Superfetch, prefetch.
-- Pagefile (leave system-managed).
-- Timer resolution, MMCSS, HPET, BCD “tweaks”, disable mitigations.
-- Memory Integrity / VBS “for FPS” unless a named incompatible driver is proven and the user accepts the security trade.
-- Services, scheduled tasks, or Defender/firewall.
-- Core parking, “disable E-cores”, or third-party Thread Director replacements. On Intel Core Ultra (this PC: 155H) the Windows 11 scheduler is the supported path.
+See `reject-unproven.md`. Also leave SysMain, Search, pagefile, VBS/Memory Integrity, services, and Thread Director/E-cores alone unless a named diagnosis exists. This PC is an Intel Core Ultra 155H — Windows 11 scheduling is the supported path (`windows-11-hardware/references/this-pc.md`).
 
 ## 4. Efficiency Mode
 

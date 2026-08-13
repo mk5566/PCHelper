@@ -5,59 +5,31 @@ description: Diagnose and update x86/x64 Windows 11 hardware: drivers, firmware,
 
 # Windows 11 hardware (x86/x64)
 
-Load `windows-pc-helper`. Read `reject-unproven.md` before any driver recommendation. Driver/firmware installs follow `non-destructive-change.md` (restore point + Device Manager Roll Back). Describe Device Manager and Windows Update optional-driver pages with `visual-guidance.md`. Never call a BIOS flash “safe.”
-
-## This machine (inventory 2026-08-13)
-
-| Part | Identity | Driver / firmware notes |
-|---|---|---|
-| System | Lenovo IdeaPad Slim 5 16IMH9 (83DC) | BIOS N7CN35WW, 2025-12-16 |
-| CPU | Intel Core Ultra 7 155H (16c / 22t) | Windows 11 scheduler + Thread Director; do not park E-cores with third-party tools |
-| GPU | Intel Arc (iGPU) | Driver 32.0.101.8861 (2026-07-05). Intel Graphics Software is installed |
-| NPU | Intel AI Boost | Present; leave unless a named failure exists |
-| Storage | WD SN740 1 TB NVMe | `Healthy`; Standard NVM Express Controller |
-| Wi-Fi | Intel AX211 160 MHz | Driver 24.60.0.3 (2026-06-11). Physical adapter OK; Wi-Fi Direct virtual adapter has NDIS 10317 history |
-| Memory | 16 GB (2×8 GB Samsung, ~7467 MT/s) | Soldered-class LPDDR; no user DIMM upgrade path implied |
-| Display | 1920×1200 + external BenQ / LG HDR 4K seen | |
-
-Refresh inventory after any driver or BIOS change.
+Load `windows-pc-helper`. Read `reject-unproven.md` before any driver recommendation. This machine’s snapshot: `references/this-pc.md` (or a fresh `inventory/PC_PROFILE.md`). UI: `visual-guidance.md`. Risk: `risk-and-privileges.md`. Driver/firmware installs: `non-destructive-change.md`. Never call a BIOS flash “safe.”
 
 ## Driver source order
 
-1. **Windows Update** optional driver: Settings > Windows Update > **Advanced options** > **Optional updates** > **Driver updates**. Expand the list; install only the one package that matches the named device.
-2. **PC OEM** (here: Lenovo Support for 83DC / IdeaPad Slim 5 16IMH9) for BIOS, EC, chipset, and laptop-specific power/hotkey/audio.
-3. **Component vendor** for GPU, Wi-Fi, storage when OEM is behind or the issue is IHV-specific: Intel (Arc, AX211, chipset), Western Digital / SanDisk for the SN740.
-4. **Microsoft Update Catalog** for a *specific* WHCP-signed KB the user or a diagnostic named.
+1. **Windows Update** optional driver: Settings > Windows Update > **Advanced options** > **Optional updates** > **Driver updates**. One named package only. `Risk: Medium` · `Privilege: Admin` · `Restart: often`.
+2. **PC OEM** (Lenovo 83DC on this laptop) for BIOS, EC, chipset, hotkey, audio.
+3. **Component vendor** (Intel / WD) when OEM is behind or the defect is IHV-specific.
+4. **Microsoft Update Catalog** for a *specific* WHCP-signed KB.
 
-Never: Driver Booster, Snappy Driver Installer packs, “driver pack” ISOs, third-party BIOS hosts, or Device Manager “update driver” that pulls an older generic.
-
-Prefer WHCP-signed packages ([Windows Hardware Compatibility Program](https://learn.microsoft.com/en-us/windows-hardware/design/compatibility/)). Inbox Microsoft drivers are acceptable when they work; OEM/IHV only when they fix a named defect or add a required feature.
+Never: Driver Booster, Snappy Driver Installer packs, third-party BIOS hosts, or Device Manager “update” that pulls an older generic. Prefer [WHCP](https://learn.microsoft.com/en-us/windows-hardware/design/compatibility/)-signed packages.
 
 ## Procedure
 
-1. `Get-PnpDevice -PresentOnly | Where-Object { $_.Status -ne 'OK' -or ($_.Problem -and $_.Problem -ne 0) }`
-2. `Get-CimInstance Win32_PnPSignedDriver` for the device class — record version and date, not INF hunting in chat.
-3. Device Manager (`devmgmt.msc`): tree by class. Yellow bang = problem. Right-click device → **Properties** → **General** (status text) and **Driver** (Provider, Date, Version, **Update Driver**, **Roll Back Driver**, Uninstall). Use Hardware Ids on the Details tab only to pick the OEM/IHV package. Do not store serials.
-4. Propose **one** package: name, version, source URL (official), what it replaces, restart, how to roll back (Device Manager Roll Back, or OEM previous version).
-5. After approval, install that package only. Verify: device Status OK, same or newer signed version, symptom gone, no new Reliability Monitor criticals.
+1. `Get-PnpDevice -PresentOnly` for non-OK / problem codes.
+2. `Win32_PnPSignedDriver` for version and date of that class — not INF hunting in chat.
+3. Device Manager (`devmgmt.msc`): class tree, yellow bang, Properties → **General** + **Driver** (Update / **Roll Back** / Uninstall). Hardware Ids on Details only to pick the package. No serials.
+4. Propose **one** official package: name, version, URL, what it replaces, restart, rollback.
+5. After approval, install that package only. Verify Status OK, version, symptom, Reliability Monitor.
 
-Firmware (BIOS/EC): OEM instructions, charged battery + AC, no power loss. Confirm current `N7CN35WW` vs Lenovo’s published latest at execution time. Do not flash a “modded” BIOS.
-
-## CPU / GPU / memory / storage specifics
-
-- **Intel Core Ultra:** hybrid P/E/LPE cores. Leave Windows 11 power mode and scheduling alone unless diagnosing a stuck-on-E-core bug with ETW. Virtualization firmware (`VirtualizationFirmwareEnabled`) false in inventory is not by itself a defect; VBS may still run.
-- **Intel Arc iGPU:** use Intel’s Windows 11 DCH package or Lenovo’s wrapped build. HAGS only if Settings shows the toggle (`windows-11-optimize`). DirectX 12 / WDDM 2.0 is the Windows 11 floor; this GPU exceeds it.
-- **WD SN740:** `Get-PhysicalDisk` health first. Vendor dashboard only if SMART details are required. TRIM is periodic on NTFS SSDs; do not run weekly “optimize” rituals.
-- **RAM:** 16 GB is the Windows 11 minimum×4; treat commit-limit symptoms as app/working-set issues first (`windows-11-optimize`), not a forced pagefile hack. Do not run MemTest without unexplained bugchecks or failed memory diagnostics.
-- **AX211:** update from Intel/Lenovo only if user-visible Wi-Fi fails. Ignore isolated Wi-Fi Direct 10317 events.
+Firmware: OEM steps, charged battery + AC. Confirm BIOS vs vendor latest at execution time. `Risk: High` · `Privilege: Firmware` · `Restart: Yes`.
 
 ## Compatibility
 
-- Windows 11 CPU lists live on Learn ([processor requirements](https://learn.microsoft.com/en-us/windows-hardware/design/minimum/windows-processor-requirements)). This 155H is a current-generation Intel mobile part; do not apply Windows 10-era “unsupported CPU” advice.
-- Discrete GPU + iGPU: bind apps in Settings > System > Display > Graphics.
-- USB4 / Thunderbolt / external GPU: OEM firmware first.
-- Do not recommend x86-to-ARM tricks; this skill is x86/x64. 26H1 (build 28000) is a new-silicon train, not a driver update for this laptop.
+CPU lists: [processor requirements](https://learn.microsoft.com/en-us/windows-hardware/design/minimum/windows-processor-requirements). Do not invent requirements. This skill is x86/x64 only. Device-specific notes stay in `references/this-pc.md`.
 
 ## Rollback
 
-Device Manager → device → Properties → **Driver** tab → **Roll Back Driver** (confirm dialog). If greyed out, reinstall the previously known-good OEM/IHV version. Keep the installer the user approved. System Restore is the fallback if roll-back is unavailable.
+Device Manager → Properties → **Driver** → **Roll Back Driver**. If greyed out, reinstall the last known-good OEM/IHV package. System Restore is the fallback.

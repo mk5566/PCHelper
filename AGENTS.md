@@ -41,7 +41,7 @@ Use this order unless evidence requires otherwise:
 - `.agents/skills/windows-11-*/SKILL.md`: Windows 11 operate, optimize, troubleshoot, maintain, security, hardware.
 - `.agents/skills/windows-pc-helper/scripts/Collect-PCInventory.ps1`: privacy-filtered read-only collector.
 - `.agents/skills/windows-pc-helper/scripts/Test-PCInventory.ps1`: output validation.
-- `.agents/skills/windows-pc-helper/references/`: tool map, rejected-advice list, dated official sources, restore-point procedure, visual Settings map, risk and privileges.
+- `.agents/skills/windows-pc-helper/references/`: tool map, reject list, sources, restore points, Settings map, risk/privileges, editions/versions. Load on demand; do not copy into SKILL.md.
 - `inventory/PC_PROFILE.md`: latest human-readable PC profile.
 - `inventory/BASELINE_ASSESSMENT.md`: dated interpretation of the latest baseline, with evidence boundaries.
 - `inventory/raw/`: latest machine-readable inventory and tables.
