@@ -4,8 +4,10 @@ Updated: 2026-08-13 (Asia/Taipei)
 
 ## Completed
 
-- The Windows PC Helper project is prepared for Git synchronization to
-  `git@github.com:mk5566/PCHelper.git`.
+- The Windows PC Helper project is synchronized to
+  `git@github.com:mk5566/PCHelper.git` on `main`.
+- Initial shared-workflow commit: `909264a` (`Initialize PC Helper shared
+  workflow`).
 - A cross-tool collaboration and credential-handling protocol is included in
   `COLLABORATION.md` and reinforced in `AGENTS.md`.
 - Local machine inventory and working artifacts are ignored by Git.
@@ -28,8 +30,9 @@ Updated: 2026-08-13 (Asia/Taipei)
 
 ## Next action
 
-Initialize Git, commit the safe shared project files, add the approved GitHub
-remote, push the initial branch, and verify upstream synchronization.
+For a new task, follow `COLLABORATION.md`: read this checkpoint and project
+guidance, inspect Git status, make the smallest scoped change, run the safety
+preflight, update this file, then commit and push the handoff.
 
 ## Open decisions
 
