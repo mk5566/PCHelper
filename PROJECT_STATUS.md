@@ -24,8 +24,10 @@ Native `Dism.exe` successfully enumerates optional features and reports the comp
 
 - Refined `$windows-pc-helper` into an orchestrator with shared reject-list and dated official sources.
 - Added `$windows-11-operate`, `$windows-11-optimize`, `$windows-11-troubleshoot`, `$windows-11-maintain`, `$windows-11-security`, `$windows-11-hardware`.
-- Encoded non-destructive change (restore point before registry/services/drivers/tasks/BCD/system files), visual whole-Settings guidance, and expanded reject list (service killers, unproven gaming-mode scripts).
+- Encoded non-destructive change with an applicable recovery path, visual whole-Settings guidance, and an expanded reject list (service killers, unproven gaming-mode scripts).
 - Principle 5 scope complete: everyday tasks, working performance tuning, privacy/security, updates/drivers, storage and power optimization, common troubleshooting.
+- Corrected all cross-skill and local-inventory reference paths. Added `scripts/Test-SkillReferences.ps1` and integrated it into the repository safety preflight.
+- Replaced weak or overbroad guidance with primary Microsoft evidence for HAGS, BCDEdit hypervisor launch control, component cleanup, Windows driver delivery, and System Restore scope. Firmware recovery now uses the OEM procedure rather than System Restore.
 
 ## Next checkpoint
 

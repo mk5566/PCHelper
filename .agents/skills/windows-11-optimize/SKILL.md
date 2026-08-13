@@ -5,13 +5,13 @@ description: Evidence-based Windows 11 performance, power optimization, startup,
 
 # Windows 11 optimize
 
-Load `windows-pc-helper`. Treat `windows-pc-helper/references/reject-unproven.md` as mandatory (service killers and “gaming mode” scripts included). Write UI steps with `visual-guidance.md`. Registry/service/BCD edits require `non-destructive-change.md`.
+Load `windows-pc-helper`. Treat `../windows-pc-helper/references/reject-unproven.md` as mandatory (service killers and “gaming mode” scripts included). Write UI steps with `../windows-pc-helper/references/visual-guidance.md`. Registry/service/BCD edits require `../windows-pc-helper/references/non-destructive-change.md`.
 
 Optimization without a before/after measurement is marketing. Measure, change one thing, re-measure.
 
 ## 1. Measure first
 
-Read `inventory/PC_PROFILE.md` if it is < 30 days old; otherwise refresh inventory.
+Read `../../../inventory/PC_PROFILE.md` if it exists and is less than 30 days old; otherwise refresh the local inventory.
 
 Live:
 
@@ -31,7 +31,7 @@ Record the top consumers and whether the device is on battery, Balanced/Best eff
    - Battery life → Best power efficiency and/or Energy saver.
    - Interactive plugged-in work → Balanced (default on this PC).
    - Short burst of CPU/GPU work → Best performance, then put it back.
-   Do **not** duplicate Ultimate Performance or switch the hidden High Performance plan on a Modern Standby laptop as the first step.
+   Do **not** duplicate Ultimate Performance or switch to a hidden High Performance plan as the first step. Those plans can increase energy use and heat and may not be exposed on Modern Standby systems; use the supported Power mode control first.
 4. **Graphics:** Settings > System > Display → scroll to **Graphics** (`ms-settings:display-advancedgraphics`). Custom options for apps list + **Add desktop app**. **Change default graphics settings** is a separate subpage: **Hardware-accelerated GPU scheduling** appears only if the GPU/driver advertise WDDM 2.7+. Test one session; revert the same toggle on stutter. Do not set `HwSchMode` to force a missing control.
 5. **Game Mode:** Settings > Gaming > Game Mode (`ms-settings:gaming-gamemode`). One toggle. This is the supported “gaming mode.” Refuse third-party gaming-mode scripts. Xbox Game Bar is the previous nav item — leave it off if it is the measured overlay.
 6. **Storage pressure:** if free space is low or disk is the wait, follow `windows-11-maintain` (Storage Sense). Do not run a cleaner.
@@ -39,7 +39,7 @@ Record the top consumers and whether the device is on battery, Balanced/Best eff
 
 ## 3. Do not touch without a specific diagnosis
 
-See `reject-unproven.md`. Also leave SysMain, Search, pagefile, VBS/Memory Integrity, services, and Thread Director/E-cores alone unless a named diagnosis exists. This PC is an Intel Core Ultra 155H — Windows 11 scheduling is the supported path (`windows-11-hardware/references/this-pc.md`).
+See `../windows-pc-helper/references/reject-unproven.md`. Also leave SysMain, Search, pagefile, VBS/Memory Integrity, services, and Thread Director/E-cores alone unless a named diagnosis exists. This PC is an Intel Core Ultra 155H — Windows 11 scheduling is the supported path (`../windows-11-hardware/references/this-pc.md`).
 
 ## 4. Efficiency Mode
 

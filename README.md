@@ -48,6 +48,12 @@ Run the shared Git safety preflight before committing:
 & '.\scripts\Test-RepositorySafety.ps1'
 ```
 
+Validate skill frontmatter and relative Markdown references directly:
+
+```powershell
+& '.\scripts\Test-SkillReferences.ps1'
+```
+
 Run the same scan as administrator from a normal PowerShell window:
 
 ```powershell

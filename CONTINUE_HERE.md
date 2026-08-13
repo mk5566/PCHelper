@@ -1,6 +1,6 @@
 # Continuation checkpoint
 
-Updated: 2026-08-13 (Asia/Taipei)  
+Updated: 2026-08-13 (Asia/Taipei)
 Handoff: **Grok Build → Codex**. User is done for now; they will continue later.
 
 ## Start here (Codex)

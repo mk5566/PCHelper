@@ -1,6 +1,6 @@
 # This PC hardware snapshot
 
-From inventory **2026-08-13**. Refresh `inventory/PC_PROFILE.md` after any driver or BIOS change. Do not treat this table as live.
+From inventory **2026-08-13**. Refresh `../../../../inventory/PC_PROFILE.md` after any driver or BIOS change. The inventory folder is local and intentionally absent from a clean clone. Do not treat this table as live.
 
 | Part | Identity | Notes |
 |---|---|---|

@@ -11,12 +11,12 @@ Use the local inventory as the baseline, gather current evidence, and choose the
 
 1. **Built-in first.** Settings, Task Manager, Resource Monitor, Reliability Monitor, Event Viewer, PowerShell/CIM, DISM, SFC, CHKDSK, Storage Sense, Windows Update, `powercfg`, Device Manager, Windows Security. A third-party tool only when it clearly adds a capability or accuracy the built-in tools lack; justify it, prefer Microsoft-endorsed or widely audited open source, and state the trust boundary. Ask before any download.
 2. **Correctness over marketing.** Recommend only changes with documented net benefit. Reject the categories in `references/reject-unproven.md` (including service killers and unproven “gaming mode” scripts). **Do not invent hardware requirements, hidden switches, or unsupported configurations.** If a control is not on the Settings/MMC surface or in `references/sources.md`, say it is unknown or re-fetch Learn — do not invent a registry/BCD/labconfig workaround.
-3. **Non-destructive modification.** Before registry, services, drivers, scheduled tasks, BCD, or system files: follow `references/non-destructive-change.md` — restore point or backup, exact impact, prefer a change that cannot break unrelated apps/security/hardware, written rollback. Never call a change “safe” if it can leave the system inconsistent or less secure.
+3. **Non-destructive modification.** Before registry, services, drivers, scheduled tasks, BCD, or system files: follow `references/non-destructive-change.md` — applicable recovery path, exact impact, prefer a change that cannot break unrelated apps/security/hardware, written rollback. Never call a change “safe” if it can leave the system inconsistent or less secure.
 4. **Visual, whole-system guidance.** User-facing steps follow `references/visual-guidance.md`: full Settings path, describe the live window (left nav, heading, controls top to bottom, dialogs). Capture the user’s real UI when possible. Never generate fake Settings screenshots.
-5. **Scope.** Everyday tasks; measured performance; privacy/security configuration the user asked for; updates and drivers; **storage and power optimization**; **common troubleshooting**. Full list: `visual-guidance.md` “Scope this project covers.”
+5. **Scope.** Everyday tasks; measured performance; privacy/security configuration the user asked for; updates and drivers; **storage and power optimization**; **common troubleshooting**. Full list: `references/visual-guidance.md` “Scope this project covers.”
 6. **Modular and progressive.** SKILL.md is the procedure only. Load a `references/` file when that fact is needed (sources, reject list, restore points, Settings map, risk, editions). Do not copy those tables into a skill body.
 7. **Evidence, then action.** Separate observed facts, interpretation, recommendations, actions taken, and open questions. Verify after every change. Default is read-only until the user approves a named change.
-8. **Risk and privileges.** For every action (including read-only), surface risk level and required privileges using `references/risk-and-privileges.md`. High or Destructive work stops for approval.
+8. **Risk and privileges.** For each inspection batch and each proposed or executed persistent change, surface risk level and required privileges using `references/risk-and-privileges.md`. High or Destructive work stops for approval.
 9. **Preserve intentional posture on this PC.** Microsoft Defender was deliberately removed. Do not run DISM `/RestoreHealth` or SFC without explicit acceptance that protected Defender files may return. Do not enable BitLocker until recovery-key storage is planned.
 
 Read `references/windows-tool-map.md` before choosing a diagnostic or repair command. Read `references/sources.md` before stating version, servicing, or platform-requirement facts.
@@ -33,7 +33,7 @@ Read `references/windows-tool-map.md` before choosing a diagnostic or repair com
 | TPM, Secure Boot, BitLocker, VBS, Memory Integrity, AV, firewall | `windows-11-security` |
 | Drivers, firmware, devices, CPU/GPU/storage compatibility | `windows-11-hardware` |
 
-- **Inventory or orientation:** Run `scripts/Collect-PCInventory.ps1`, then read `inventory/PC_PROFILE.md`, `inventory/BASELINE_ASSESSMENT.md` when present, and the relevant raw table.
+- **Inventory or orientation:** Run `scripts/Collect-PCInventory.ps1`, then read `../../../inventory/PC_PROFILE.md`, `../../../inventory/BASELINE_ASSESSMENT.md` when present, and the relevant raw table.
 - **Diagnosis:** Read the profile, reproduce or observe the symptom when safe, collect focused Windows evidence, form ranked hypotheses, and test the cheapest discriminating hypothesis first. Then follow `windows-11-troubleshoot`.
 - **Recommendation:** Compare compatibility, impact, cost, reversibility, and risk. Clearly label facts versus inference.
 - **Maintenance or repair:** Propose the exact change first. Act only after approval, then verify the result and record what changed.
@@ -48,7 +48,7 @@ Read `references/windows-tool-map.md` before choosing a diagnostic or repair com
    ```
 
 2. Treat collection warnings as missing evidence. Do not infer that an inaccessible feature is disabled or absent.
-3. Read `inventory/PC_PROFILE.md` first, then the dated `inventory/BASELINE_ASSESSMENT.md` when present. Load only the relevant JSON or CSV sections for the user's question.
+3. Read `../../../inventory/PC_PROFILE.md` first, then the dated `../../../inventory/BASELINE_ASSESSMENT.md` when present. Load only the relevant JSON or CSV sections for the user's question.
 4. Refresh when the inventory is missing, older than 30 days, or hardware/software materially changed.
 5. Never add secrets or omitted identifiers to the inventory merely for completeness.
 
@@ -89,7 +89,7 @@ Before steps 2–6, state the exact target, effect, reversibility, **risk level*
 
 ## Evidence boundaries
 
-- Do not invent hardware requirements, hidden switches, or unsupported configurations. Quote Learn/Support or the live UI. If the HAGS toggle, an edition feature, or a CPU/TPM requirement is absent, it is unsupported on this device — do not add `HwSchMode`, labconfig, or “secret” BCD/power-plan keys.
+- Do not invent hardware requirements, hidden switches, or unsupported configurations. Quote Learn/Support or the live UI. If a Settings control is missing, report it as currently unavailable and check documented hardware, driver, edition, or policy prerequisites when relevant. Do not force it with `HwSchMode`, labconfig, or “secret” BCD/power-plan keys.
 - Do not claim a root cause from correlation alone.
 - Do not treat a clean summary as proof that no fault exists.
 - Do not expose or store credentials, recovery material, user content, precise network identifiers, or device serials.

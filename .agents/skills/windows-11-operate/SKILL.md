@@ -5,21 +5,21 @@ description: Operate Windows 11 correctly across Home, Pro, Pro Education, Pro f
 
 # Windows 11 operate
 
-Load `windows-pc-helper` first. For build/edition/feature-update facts, open `windows-pc-helper/references/editions-and-versions.md` and `sources.md` — do not restate those tables. Click-paths: `visual-guidance.md`. Risk line: `risk-and-privileges.md`.
+Load `windows-pc-helper` first. For build/edition/feature-update facts, open `../windows-pc-helper/references/editions-and-versions.md` and `../windows-pc-helper/references/sources.md` — do not restate those tables. Click-paths: `../windows-pc-helper/references/visual-guidance.md`. Risk reporting: `../windows-pc-helper/references/risk-and-privileges.md`.
 
 ## Identify, then advise
 
-Run the identify commands in `editions-and-versions.md`. This PC last inventoried as **24H2 / 26100 / Home**. Confirm before recommending 25H2.
+Run the identify commands in `../windows-pc-helper/references/editions-and-versions.md`. This PC last inventoried as **24H2 / 26100 / Home**. Confirm before recommending 25H2.
 
 ## Feature updates
 
-Follow the rules in `editions-and-versions.md`. UI: Settings > **Windows Update** (`ms-settings:windowsupdate`) — status sentence, **Check for updates**, optional **Download and install Windows 11, version 25H2**, **Pause for 1 week**. Update history is a subpage.
+Follow the rules in `../windows-pc-helper/references/editions-and-versions.md`. UI: Settings > **Windows Update** (`ms-settings:windowsupdate`) — status sentence, **Check for updates**, optional **Download and install Windows 11, version 25H2**, **Pause for 1 week**. Update history is a subpage.
 
 `Risk: Low` (install offered update) or `Medium` (feature update) · `Privilege: Standard` (UAC if the package requires it) · `Restart: Yes` for 25H2.
 
 ## Everyday Settings
 
-Open **Start > Settings**. Left nav stays visible. Prefer a named path. Whole-pane layouts live in `visual-guidance.md` (Display, About, Accounts, Default apps, Optional features, Privacy & security).
+Open **Start > Settings**. Left nav stays visible. Prefer a named path. Whole-pane layouts live in `../windows-pc-helper/references/visual-guidance.md` (Display, About, Accounts, Default apps, Optional features, Privacy & security).
 
 - Change one named control. Undo is the same toggle.
 - Privacy: Settings > **Privacy & security**. Change one app permission the user named. No privacy-pack `.reg`. Optional diagnostic data can be reduced; required diagnostics cannot be turned off on Home.
@@ -28,4 +28,4 @@ Open **Start > Settings**. Left nav stays visible. Prefer a named path. Whole-pa
 
 ## Configuration changes
 
-Change ladder in `windows-pc-helper`. Prefer a Settings toggle. Registry/service/optional-feature edits require `non-destructive-change.md`.
+Change ladder in `windows-pc-helper`. Prefer a Settings toggle. Registry/service/optional-feature edits require `../windows-pc-helper/references/non-destructive-change.md`.

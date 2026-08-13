@@ -1,6 +1,6 @@
 # Risk level and privileges
 
-State **risk** and **required privileges** on every action, including “just look.” Do not skip this for Settings toggles. Never label High or Destructive work as safe.
+State **risk**, **required privileges**, and restart expectation once for each read-only inspection batch and separately for every proposed or executed persistent change. Never label High or Destructive work as safe.
 
 ## Privileges
 
@@ -16,16 +16,16 @@ State **risk** and **required privileges** on every action, including “just lo
 | Level | Meaning | Examples | Restore point? |
 |---|---|---|---|
 | None | Read-only; no persistent change | Inventory, Task Manager, Reliability Monitor, Event Viewer, `Get-*`, Settings pages viewed but not changed | No |
-| Low | Reversible per-user or documented Settings control; unrelated apps/security/hardware stay intact | Power mode, Energy saver, startup-app toggle, Game Mode, Storage Sense run, privacy app-permission toggle | No (written undo is enough) |
-| Medium | Machine-wide or servicing-adjacent; can affect other apps or need restart | Optional Windows Update driver, WinGet/app uninstall, HAGS, Memory Integrity, optional features, Fast Startup, `chkdsk /scan` | Yes if it touches drivers/features; otherwise confirm undo path |
-| High | System files, services, BCD, disk repair, encryption, AV | DISM `/RestoreHealth`, `sfc /scannow`, `chkdsk /f` or `/r`, service start-type, BCD, BitLocker, firmware | Required (`non-destructive-change.md`) |
-| Destructive | Data or install can be lost | Reset this PC, format/partition, recovery-drive wipe, BIOS flash fail | User-data backup **and** explicit acceptance; not a “tweak” |
+| Low | Reversible per-user or documented control with limited scope | Power mode, Energy saver, startup-app toggle, Game Mode, privacy app-permission toggle, `chkdsk /scan` | No; capture current state and written undo |
+| Medium | Machine-wide, deletes selected data, or servicing-adjacent; can affect other apps or need restart | Storage Sense cleanup after reviewing categories, optional Windows Update driver, WinGet/app uninstall, HAGS, Memory Integrity, optional features, Fast Startup | Applicable rollback; restore point when it materially covers the change |
+| High | System files, services, BCD, disk repair, encryption, AV, or firmware | DISM `/RestoreHealth`, `sfc /scannow`, `chkdsk /f` or `/r`, service start-type, BCD, BitLocker, BIOS/UEFI update | Required applicable recovery path (`non-destructive-change.md`); firmware uses OEM recovery, not System Restore |
+| Destructive | The intended operation deletes data or reinstalls/repartitions the system | Reset this PC, format, delete/recreate partitions, recovery-drive wipe | User-data backup **and** explicit acceptance; not a “tweak” |
 
 On this PC, DISM RestoreHealth / SFC is **High** and may restore Defender. BitLocker enable is **High** and needs a recovery-key plan first.
 
 ## How to surface it
 
-For each recommended or executed step, write one line:
+For a read-only inspection batch and for each recommended or executed persistent change, write one line:
 
 `Risk: <None|Low|Medium|High|Destructive> · Privilege: <Standard|Admin|Firmware> · Restart: <No|Yes>`
 

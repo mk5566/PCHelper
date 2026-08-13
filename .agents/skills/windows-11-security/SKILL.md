@@ -5,11 +5,11 @@ description: Assess and change Windows 11 security posture using official contro
 
 # Windows 11 security
 
-Load `windows-pc-helper`. Default is report-only. Describe Windows Security and Privacy pages with `visual-guidance.md`. Any enable/disable of AV, BitLocker, VBS, Memory Integrity, firewall, BCD, or services follows `non-destructive-change.md` and is **never** labeled “safe.” Approval required.
+Load `windows-pc-helper`. Default is report-only. Describe Windows Security and Privacy pages with `../windows-pc-helper/references/visual-guidance.md`. Any enable/disable of AV, BitLocker, VBS, Memory Integrity, firewall, BCD, or services follows `../windows-pc-helper/references/non-destructive-change.md` and is **never** labeled “safe.” Approval required.
 
 ## Baseline on this PC
 
-Read `inventory/PC_PROFILE.md` Security snapshot (refresh if older than 30 days). Last known: Secure Boot on, TPM 2.0 ready, firewall all profiles on, BitLocker off, UAC on without secure desktop, **no** Security Center AV, Defender **intentionally absent**. Do not “fix” Defender absence or enable BitLocker in a generic hardening pass.
+Read `../../../inventory/PC_PROFILE.md` Security snapshot when the local inventory exists (refresh if older than 30 days). Last known: Secure Boot on, TPM 2.0 ready, firewall all profiles on, BitLocker off, UAC on without secure desktop, **no** Security Center AV, Defender **intentionally absent**. Do not “fix” Defender absence or enable BitLocker in a generic hardening pass.
 
 ## Platform requirements (do not bypass)
 
@@ -49,8 +49,8 @@ New Windows 11 installs turn VBS and HVCI (Memory Integrity) on when hardware al
 - Open Settings > Privacy & security > **Windows Security** > **Open Windows Security**. Left sidebar: Virus & threat protection, Account protection, Firewall & network protection, App & browser control, **Device security**, Device performance & health, Family options. On this PC, Virus & threat protection will not show an active Microsoft Defender product — that is expected.
 - Device security → **Core isolation** (link) → **Memory integrity** toggle. A restart banner appears if you change it.
 - Smart App Control: sidebar **App & browser control** → **Smart App Control settings**. Evaluation → On, or Off. **Off is not casually reversible** (typically reset/reimage). Do not toggle it as a tweak.
-- Credential Guard / Memory Integrity / Hyper-V block many third-party hypervisors (KB3204980). If the user needs those, explain the trade; do not silently disable VBS.
-- `hypervisorlaunchtype Off` does not always stop the hypervisor when HVCI or a WDAC/SAC policy is enforcing.
+- Credential Guard / Memory Integrity / Hyper-V can conflict with third-party virtualization products or make them use a Hyper-V-compatible mode (KB3204980). Confirm the current product/version behavior before changing VBS; do not silently disable security.
+- `hypervisorlaunchtype Off` is the documented BCD control that prevents the Windows hypervisor from launching for that boot entry. It requires a restart. If Windows still reports a hypervisor afterward, verify the selected boot entry and collect feature, VBS, policy, and runtime evidence; do not claim an override without authoritative evidence.
 
 Do not disable Secure Boot, VBS, or Memory Integrity for FPS or as a first diagnostic step.
 
@@ -62,4 +62,4 @@ Do not disable Secure Boot, VBS, or Memory Integrity for FPS or as a first diagn
 
 ## If the user wants a change
 
-State: exact setting, UI path from `visual-guidance.md`, what it protects or removes, restore-point evidence, how to undo, admin/restart, verification (`Get-Tpm`, `Confirm-SecureBootUEFI`, Security Center, `Get-BitLockerVolume` without key material). Then wait.
+State: exact setting, UI path from `../windows-pc-helper/references/visual-guidance.md`, what it protects or removes, applicable recovery evidence, how to undo, admin/restart, verification (`Get-Tpm`, `Confirm-SecureBootUEFI`, Security Center, `Get-BitLockerVolume` without key material). Then wait.

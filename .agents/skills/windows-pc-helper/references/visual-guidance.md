@@ -63,6 +63,6 @@ In scope (principle 5, complete):
 - Power optimization (Power mode, Energy saver, screen/sleep, Energy recommendations, `powercfg` reports)
 - Common troubleshooting (Reliability Monitor, Event Viewer, isolation tests — `windows-11-troubleshoot`)
 
-Do not invent hardware requirements, hidden switches, or unsupported configurations. Requirements come from [Windows 11 requirements](https://learn.microsoft.com/en-us/windows/whats-new/windows-11-requirements) and `sources.md`. If a Settings control is missing, treat it as unavailable — do not invent a registry, BCD, or labconfig substitute.
+Do not invent hardware requirements, hidden switches, or unsupported configurations. Requirements come from [Windows 11 requirements](https://learn.microsoft.com/en-us/windows/whats-new/windows-11-requirements) and `sources.md`. If a Settings control is missing, treat it as currently unavailable; check documented hardware, driver, edition, or policy prerequisites when relevant. Do not invent a registry, BCD, or labconfig substitute.
 
 Out of scope unless the user names the risk and approves: firmware flash, partition/format, BitLocker enable without recovery-key plan, DISM RestoreHealth/SFC on this PC, mass service/task disable, unsupported TPM/CPU installs.

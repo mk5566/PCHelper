@@ -5,7 +5,7 @@ description: Maintain Windows 11 with Windows Update, storage optimization (Stor
 
 # Windows 11 maintain
 
-Load `windows-pc-helper`. Read `windows-pc-helper/references/sources.md` for servicing facts. User-facing clicks follow `visual-guidance.md`. DISM, SFC, CHKDSK `/f`/`/r`, optional features, and component cleanup follow `non-destructive-change.md` (restore point + written rollback). Propose every repair; act only after approval. Never call RestoreHealth or `chkdsk /r` “safe.”
+Load `windows-pc-helper`. Read `../windows-pc-helper/references/sources.md` for servicing facts. User-facing clicks follow `../windows-pc-helper/references/visual-guidance.md`. DISM, SFC, CHKDSK `/f`/`/r`, optional features, and component cleanup follow `../windows-pc-helper/references/non-destructive-change.md` with a recovery method that actually applies to the named change. Propose every repair; act only after approval. Never call RestoreHealth or `chkdsk /r` “safe.”
 
 ## Windows Update
 
@@ -20,7 +20,7 @@ Load `windows-pc-helper`. Read `windows-pc-helper/references/sources.md` for ser
 
 4. Install the current monthly cumulative (B) from Windows Update. For a specific KB only, Microsoft Update Catalog — not third-party “update tuners.”
 5. 24H2 → 25H2: enablement package after the device is current on 24H2. See `windows-11-operate`. Do not install 26H1 onto this class of PC.
-6. If Learn release-health shows this edition/version is near or past end of updates, the supported hop from 24H2 is 25H2. Confirm dates in `windows-pc-helper/references/sources.md` before stating them.
+6. If Learn release-health shows this edition/version is near or past end of updates, the supported hop from 24H2 is 25H2. Confirm dates in `../windows-pc-helper/references/sources.md` before stating them.
 7. Never uninstall or hide a quality update without a documented regression and a rollback plan.
 
 ## Storage
@@ -30,7 +30,7 @@ Order:
 1. Settings > System > **Storage** (`ms-settings:storagesense`). Title **Storage**. Top: **Local Disk (C:)** usage bar and free/total. Category rows (Installed apps, Temporary files, Other, …). This PC last showed ~83% free.
 2. Open **Storage Sense** (`ms-settings:storagepolicies`). Toggle at top. Then: Cleanup of temporary files; Automatic User content cleanup; Recycle Bin / Downloads age dropdowns (Downloads only if the user accepts); locally available cloud content. **Run Storage Sense now** at the bottom.
 3. Delivery Optimization cache: Settings > Windows Update > Advanced > Delivery Optimization > Advanced.
-4. `DISM /Online /Cleanup-Image /AnalyzeComponentStore` then `/StartComponentCleanup` if reclaimable packages are large. Add `/ResetBase` only when the user accepts they cannot uninstall already-installed updates.
+4. `DISM /Online /Cleanup-Image /AnalyzeComponentStore` first. Use `/StartComponentCleanup` only when cleanup is recommended and the user accepts that superseded component versions are deleted immediately rather than after the normal grace period. Add `/ResetBase` only when the user accepts that all currently installed update packages become non-uninstallable.
 5. Empty Recycle Bin / user Downloads only with confirmation. Do not delete WinSxS, Prefetch, or installer folders by hand.
 
 Do not run CCleaner or WinSxS-deleting scripts.
@@ -62,7 +62,7 @@ Never format or shrink/extend partitions without a backup confirmation and an ex
 
 ## Backup and restore points
 
-Follow `non-destructive-change.md`. Before disk repair, feature updates, or firmware: confirm a user-data backup the user already has (do not invent one) **and** create a System Restore point. System Restore is not a document backup. Do not offer **Reset this PC** (Settings > System > Recovery) as cleanup. Do not enable BitLocker as maintenance (`windows-11-security`).
+Follow `../windows-pc-helper/references/non-destructive-change.md`. Before disk repair or a feature update, confirm the applicable recovery path and a user-data backup the user already has (do not invent one). Create a System Restore point when it can meaningfully protect Windows system state; it is not a document backup and cannot roll back firmware. Firmware belongs to `windows-11-hardware` and requires the OEM recovery procedure. Do not offer **Reset this PC** (Settings > System > Recovery) as cleanup. Do not enable BitLocker as maintenance (`windows-11-security`).
 
 ## Verify
 

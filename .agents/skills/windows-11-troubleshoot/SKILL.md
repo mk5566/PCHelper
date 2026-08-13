@@ -5,7 +5,7 @@ description: Common Windows 11 troubleshooting with Reliability Monitor, Event V
 
 # Windows 11 troubleshoot
 
-Load `windows-pc-helper`. Diagnosis is read-only unless the user also asked for a fix. Describe each tool with `visual-guidance.md`. Do not disable security, reset the network stack, or run DISM/SFC/CHKDSK as step 1. Isolation that disables services/startup still needs a restore point if it leaves those disabled (`non-destructive-change.md`).
+Load `windows-pc-helper`. Diagnosis is read-only unless the user also asked for a fix. Describe each tool with `../windows-pc-helper/references/visual-guidance.md`. Do not disable security, reset the network stack, or run DISM/SFC/CHKDSK as step 1. Persistent isolation changes need approval, a captured baseline, and an applicable rollback (`../windows-pc-helper/references/non-destructive-change.md`).
 
 ## 1. Scope the symptom
 
@@ -13,7 +13,7 @@ Restate, in the user’s words: what fails, when it started, how often, what cha
 
 ## 2. Cheap evidence first
 
-1. Read `inventory/PC_PROFILE.md` and the Health / CollectionWarnings sections of `inventory/raw/inventory.json`.
+1. Read `../../../inventory/PC_PROFILE.md` and the Health / CollectionWarnings sections of the local `inventory/raw/inventory.json` when they exist. A clean clone will not contain inventory because it is intentionally ignored.
 2. Reliability Monitor: Win+R → `perfmon /rel` → **Reliability Monitor** window. Top: stability index chart (days). Red circles = critical, yellow = warnings, blue = information. Click the day the user noticed the problem; the **Reliability details** list at the bottom shows source and event. Open the first critical in that cluster, not only the last.
 3. Event Viewer: Start → **Event Viewer** or `eventvwr.msc`. Left tree: **Windows Logs > System**. Action pane → **Filter Current Log** → Event level: Critical and Error, Logged: Last 7 days. Or re-query if inventory is stale:
 
@@ -66,7 +66,7 @@ Always report:
 - likely interpretation and confidence
 - ruled-out items
 - next action
-- risk, privilege, and restart (`risk-and-privileges.md`)
+- risk, privilege, and restart (`../windows-pc-helper/references/risk-and-privileges.md`)
 
 If the user wants a fix, hand off:
 

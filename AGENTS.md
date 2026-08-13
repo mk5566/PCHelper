@@ -16,8 +16,8 @@ Help the user understand, troubleshoot, and maintain this Windows PC using evide
 
 - Default to read-only inspection. Never change Windows settings, registry values, services, drivers, startup entries, applications, partitions, firmware, encryption, firewall rules, accounts, permissions, or files outside this project without explicit user approval for the specific change.
 - Before a material change, explain impact, reversibility, administrator needs, restart requirements, and the verification plan. Never call a change “safe” if it can leave the system inconsistent or less secure.
-- Surface **risk level** and **required privileges** on every action, including read-only inspection (`.agents/skills/windows-pc-helper/references/risk-and-privileges.md`).
-- Before registry, services, drivers, scheduled tasks, boot configuration, or system files: create or confirm a System Restore point (see `.agents/skills/windows-pc-helper/references/non-destructive-change.md`) and a user-data backup when files or boot are in scope.
+- Surface **risk level**, **required privileges**, and restart expectation once per read-only inspection batch and separately for every persistent change (`.agents/skills/windows-pc-helper/references/risk-and-privileges.md`).
+- Before registry, services, drivers, scheduled tasks, boot configuration, or system files: create or confirm an applicable recovery path (see `.agents/skills/windows-pc-helper/references/non-destructive-change.md`) and a user-data backup when files or boot are in scope. System Restore is not firmware rollback.
 - Write user-facing steps for the full Windows 11 Settings/desktop surface (`.agents/skills/windows-pc-helper/references/visual-guidance.md`). Do not generate fake Settings screenshots.
 - Prefer reversible Windows-native actions. Create or confirm a recovery path before high-impact work.
 - Do not collect or store passwords, tokens, cookies, browser history, Wi-Fi profiles or keys, product keys, recovery keys, document contents, email, chat data, precise IP addresses, MAC addresses, hardware serial numbers, or user account lists.

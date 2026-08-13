@@ -44,6 +44,14 @@ if ($LASTEXITCODE -ne 0) {
     $failed = $true
 }
 
+Write-Host 'Skill frontmatter and reference check:'
+try {
+    & (Join-Path $PSScriptRoot 'Test-SkillReferences.ps1')
+} catch {
+    $failed = $true
+    Write-Error $_
+}
+
 if ($failed) {
     throw 'Repository safety preflight failed. Do not commit until the findings are resolved.'
 }

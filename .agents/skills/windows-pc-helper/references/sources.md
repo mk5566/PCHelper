@@ -39,13 +39,16 @@ This PC’s last inventory (2026-08-13) is **24H2, build 26100**, Windows 11 Hom
 | VBS and HVCI (Memory Integrity) on by default on capable new Windows 11 installs | [Silicon-assisted security](https://learn.microsoft.com/en-us/windows/security/book/hardware-security-silicon-assisted-security) |
 | Third-party hypervisors conflict with Hyper-V, Memory Integrity, Credential Guard | [KB3204980](https://learn.microsoft.com/en-us/troubleshoot/windows-client/application-management/virtualization-apps-not-work-with-hyper-v) |
 | WHCP: systems and drivers tested with HLK; look up certified products rather than unsigned packs | [WHCP](https://learn.microsoft.com/en-us/windows-hardware/design/compatibility/) |
-| HAGS appears only when GPU + WDDM 2.7+ driver advertise it (Settings > System > Display > Graphics > default graphics settings) | Microsoft Q&A guidance consistent with WDDM 2.7 requirement; confirm on-device, do not force via registry |
+| Windows Update installs recommended drivers and exposes optional drivers; if Windows Update cannot find one, check the hardware manufacturer | [Automatically get recommended and updated hardware drivers](https://support.microsoft.com/windows/hardware/drivers/automatically-get-recommended-and-updated-hardware-drivers) |
+| HAGS UI appears when supporting GPU hardware and a WDDM 2.7+ driver expose the feature | [Hardware Accelerated GPU Scheduling](https://devblogs.microsoft.com/directx/hardware-accelerated-gpu-scheduling/) |
+| `hypervisorlaunchtype Off` controls hypervisor launch for a BCD boot entry; restart and verify rather than infer policy overrides | [BCDEdit /set](https://learn.microsoft.com/en-us/windows-hardware/drivers/devtest/bcdedit--set) |
+| Manual `/StartComponentCleanup` immediately deletes superseded component versions; `/ResetBase` makes current update packages non-uninstallable | [Clean Up the WinSxS Folder](https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/clean-up-the-winsxs-folder?view=windows-11) |
 
 ## Recovery
 
 | Claim | Source | Retrieved |
 |---|---|---|
-| System Restore reverts system files, registry, and installed programs to a restore point; not personal files | [System Restore](https://support.microsoft.com/windows/system-restore) | 2026-08-13 |
+| System Restore restores monitored Windows files and saved registry state; it does not capture BIOS/UEFI firmware | [Restoring the system](https://learn.microsoft.com/en-us/windows/win32/sr/restoring-the-system) | 2026-08-13 |
 | Create a point: Start → “Create a restore point” → System Protection tab → Create… | [System Protection](https://support.microsoft.com/windows/system-protection) | 2026-08-13 |
 | Reset this PC lives at Settings > System > Recovery; it is a reinstall, not a tweak rollback | [Reset your PC](https://support.microsoft.com/windows/reset-your-pc) | 2026-08-13 |
 
