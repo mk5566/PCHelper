@@ -20,8 +20,8 @@ foreach ($skillFile in $skillFiles) {
         continue
     }
 
-    $nameMatch = [regex]::Match($content, '(?m)^name:\s*([^\r\n]+)$')
-    $descriptionMatch = [regex]::Match($content, '(?m)^description:\s*([^\r\n]+)$')
+    $nameMatch = [regex]::Match($content, '(?m)^name:[ \t]*([^\r\n]+)\r?$')
+    $descriptionMatch = [regex]::Match($content, '(?m)^description:[ \t]*([^\r\n]+)\r?$')
     if (-not $nameMatch.Success) {
         $failures.Add("Missing frontmatter name: $relativeSkillPath")
     } elseif ($nameMatch.Groups[1].Value.Trim() -ne $skillFile.Directory.Name) {
