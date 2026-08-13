@@ -1,0 +1,4 @@
+interface:
+  display_name: "Windows PC Helper"
+  short_description: "Inspect, diagnose, and maintain this Windows PC"
+  default_prompt: "Use $windows-pc-helper to inspect this PC and recommend the safest next action."

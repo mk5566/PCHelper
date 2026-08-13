@@ -1,0 +1,10 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+# Read access supports PC inspection. Writes stay in this project unless the user
+# approves a specific system-changing action.
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+project_doc_max_bytes = 32768
+
+[sandbox_workspace_write]
+network_access = false

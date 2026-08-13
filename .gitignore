@@ -1,0 +1,20 @@
+# Local machine data must not be committed or shared.
+inventory/
+work/
+
+# Credentials, keys, and local configuration. Keep templates such as
+# .env.example safe to commit; never put real values in them.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.kdbx
+credentials/
+secrets/
+
+# Temporary files and generated logs.
+*.tmp
+*.log
