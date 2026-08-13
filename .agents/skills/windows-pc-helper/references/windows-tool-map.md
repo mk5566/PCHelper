@@ -4,20 +4,20 @@
 
 | Need | Start with | Escalate carefully to | Notes |
 |---|---|---|---|
-| OS and hardware baseline | CIM (`Win32_*`), `Get-ComputerInfo`, `Get-PnpDevice` | Manufacturer diagnostics | Omit serials and unique IDs. |
-| CPU, memory, and live load | Task Manager, Resource Monitor, `Get-Counter`, CIM | Windows Performance Recorder/Analyzer | Capture only the duration needed; traces may contain paths. |
-| Storage capacity and health | `Get-PhysicalDisk`, `Get-Volume`, Storage Settings | `chkdsk /scan`, vendor SMART tool | Never run repair modes or format/partition commands without approval and backup confirmation. |
-| Windows component integrity | Event logs and servicing state | `DISM /Online /Cleanup-Image /ScanHealth`, then `/RestoreHealth`; `sfc /scannow` | Scan modes first. Repair modes need approval and may require restart. |
-| Drivers and devices | Device Manager, `Get-PnpDevice`, `Win32_PnPSignedDriver`, Windows Update | PC/component vendor support | Avoid generic driver-updater utilities and unofficial download sites. |
-| Windows Update | Settings, update history, `Get-HotFix`, Windows Update service | Microsoft Update Catalog for a specific KB | Do not hide or uninstall updates without a diagnosed reason. |
-| Security | Windows Security, `Get-MpComputerStatus`, firewall profiles, TPM, Secure Boot, BitLocker status | Microsoft security guidance | Never display keys or disable protection as a diagnostic shortcut. |
-| Startup and background load | Task Manager Startup Apps, `Win32_StartupCommand`, services | Autoruns only if built-in evidence is insufficient | Disabling a service can break dependencies; propose exact targets first. |
-| Networking | Windows troubleshooter, `Get-NetAdapter`, `Get-NetIPConfiguration`, `Test-NetConnection` | `netsh trace`, packet capture | Do not record Wi-Fi keys, MACs, IPs, DNS suffixes, or full captures by default. |
-| Battery and power | Settings, `powercfg /getactivescheme`, `powercfg /batteryreport` | OEM battery diagnostics | Battery reports contain device and usage details; keep local and ignored by Git. |
-| Crashes and hangs | Reliability Monitor, Event Viewer, Windows Error Reporting summary | Focused dump or trace | Dumps can contain private data; ask before capturing or opening them. |
+| OS and hardware baseline | CIM (`Win32_*`), `Get-ComputerInfo`, `Get-PnpDevice` | Manufacturer diagnostics | Omit serials and unique IDs. Identify version by build: 26100=24H2, 26200=25H2, 28000=26H1. |
+| CPU, memory, and live load | Task Manager, Resource Monitor, `Get-Counter`, CIM | Windows Performance Recorder/Analyzer | Capture only the duration needed; traces may contain paths. Efficiency Mode is EcoQoS, not a RAM free. |
+| Storage capacity and health | Settings > System > Storage, Storage Sense, `Get-PhysicalDisk`, `Get-Volume` | `chkdsk /scan`, then `chkdsk /f` only with approval | Never run `/r`, format, or partition commands without approval and backup confirmation. |
+| Windows component integrity | Event logs, CBS.log tail, servicing state | Native `Dism.exe /Online /Cleanup-Image /CheckHealth` then `/ScanHealth`; `/RestoreHealth` and `sfc /scannow` only with approval | `/CheckHealth` reads a flag; `/ScanHealth` scans. Repair can restore intentionally removed Defender files on this PC. Prefer native `Dism.exe` over the PowerShell DISM provider. |
+| Drivers and devices | Device Manager, `Get-PnpDevice`, `Win32_PnPSignedDriver`, Windows Update optional updates | PC OEM then GPU/NIC/storage vendor support | Avoid generic driver-updater utilities and unofficial download sites. Prefer WHCP-signed packages. |
+| Windows Update | Settings > Windows Update, update history, `Get-HotFix`, `wuauserv` | Microsoft Update Catalog for a specific KB | Do not hide or uninstall updates without a diagnosed reason. 25H2 is an enablement package on 24H2. 26H1 is not an in-place upgrade from 24H2/25H2. |
+| Security | Windows Security, firewall profiles, TPM (`Get-Tpm` / `tpmtool`), Secure Boot, BitLocker status | Microsoft security guidance | Never display keys or disable protection as a diagnostic shortcut. On this PC, Defender absence is intentional. |
+| Startup and background load | Settings > Apps > Startup, Task Manager Startup, `Win32_StartupCommand` | Individual service start-type change only with a named dependency check | Disabling a service can break dependencies; propose exact targets first. |
+| Networking | Settings network troubleshooter, `Get-NetAdapter`, `Get-NetIPConfiguration`, `Test-NetConnection` | `netsh trace`, packet capture | Do not record Wi-Fi keys, MACs, IPs, DNS suffixes, or full captures by default. Do not reset Winsock/TCP as a first step. |
+| Battery and power | Settings > System > Power & battery (Power mode, Energy saver), `powercfg /getactivescheme`, `powercfg /batteryreport`, `powercfg /sleepstudy` | OEM battery/firmware diagnostics | Power *mode* is the Windows 11 control. Classic High Performance / Ultimate Performance plans are the wrong first lever on Modern Standby laptops. Reports stay local and gitignored. |
+| Crashes and hangs | Reliability Monitor (`perfmon /rel`), Event Viewer System/Application, `Get-WinEvent` | Focused dump or WinDbg | Dumps can contain private data; ask before capturing or opening them. |
 | Installed applications | Settings Apps, uninstall registry inventory, `Get-AppxPackage`, `winget list` | Publisher-supported inventory | Do not execute uninstall strings from the registry. |
 | App repair | App settings Repair/Reset, package-specific logs | Reinstall from official source | Reset may erase app-local state; state the effect first. |
-| Virtualization and Linux | Windows Features, `wsl --status`, `wsl -l -v`, Hyper-V status | DISM feature changes | Feature changes usually require admin and restart. |
+| Virtualization and Linux | Windows Features, `wsl --status`, `wsl -l -v`, `bcdedit /enum` hypervisorlaunchtype, Memory Integrity state | DISM feature changes, firmware virtualization | Feature changes usually require admin and restart. VBS/HVCI keep the hypervisor running even if Hyper-V is not installed. |
 
 ## Administrator boundary
 

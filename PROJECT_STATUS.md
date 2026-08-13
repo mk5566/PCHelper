@@ -20,6 +20,11 @@ Microsoft Defender Antivirus was deliberately removed by the user. The orphan `M
 
 Native `Dism.exe` successfully enumerates optional features and reports the component store as repairable. The `Class not registered` failure is isolated to the PowerShell DISM provider. The inventory collector now falls back to native DISM. Do not run `/RestoreHealth` or SFC without accepting that intentionally removed Defender files may be restored.
 
+## Windows 11 skills (2026-08-13)
+
+- Refined `$windows-pc-helper` into an orchestrator with shared reject-list and dated official sources.
+- Added `$windows-11-operate`, `$windows-11-optimize`, `$windows-11-troubleshoot`, `$windows-11-maintain`, `$windows-11-security`, `$windows-11-hardware`.
+
 ## Next checkpoint
 
 No immediate Defender action remains. Do not enable BitLocker until recovery-key storage has been explicitly planned.

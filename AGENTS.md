@@ -7,7 +7,7 @@ Help the user understand, troubleshoot, and maintain this Windows PC using evide
 ## Required workflow
 
 1. Read `inventory/PC_PROFILE.md` and `inventory/BASELINE_ASSESSMENT.md` when they exist.
-2. Use the `$windows-pc-helper` skill for inventory, diagnosis, performance, security, storage, driver, application, startup, update, or maintenance requests.
+2. Use the `$windows-pc-helper` skill as the orchestrator. Dispatch Windows 11 work to `$windows-11-operate`, `$windows-11-optimize`, `$windows-11-troubleshoot`, `$windows-11-maintain`, `$windows-11-security`, or `$windows-11-hardware`. Reject unproven tweaks listed in `.agents/skills/windows-pc-helper/references/reject-unproven.md`.
 3. Refresh the inventory when it is missing, older than 30 days, or the user reports a material hardware/software change.
 4. Separate observed facts, interpretations, recommendations, actions taken, and unresolved questions.
 5. Verify outcomes after every system change.
@@ -33,10 +33,11 @@ Use this order unless evidence requires otherwise:
 
 ## Project files
 
-- `.agents/skills/windows-pc-helper/SKILL.md`: reusable workflow.
+- `.agents/skills/windows-pc-helper/SKILL.md`: orchestrator, inventory, change ladder.
+- `.agents/skills/windows-11-*/SKILL.md`: Windows 11 operate, optimize, troubleshoot, maintain, security, hardware.
 - `.agents/skills/windows-pc-helper/scripts/Collect-PCInventory.ps1`: privacy-filtered read-only collector.
 - `.agents/skills/windows-pc-helper/scripts/Test-PCInventory.ps1`: output validation.
-- `.agents/skills/windows-pc-helper/references/windows-tool-map.md`: built-in tool routing and risk notes.
+- `.agents/skills/windows-pc-helper/references/`: tool map, rejected-advice list, dated official sources.
 - `inventory/PC_PROFILE.md`: latest human-readable PC profile.
 - `inventory/BASELINE_ASSESSMENT.md`: dated interpretation of the latest baseline, with evidence boundaries.
 - `inventory/raw/`: latest machine-readable inventory and tables.

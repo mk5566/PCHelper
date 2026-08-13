@@ -4,36 +4,33 @@ Updated: 2026-08-13 (Asia/Taipei)
 
 ## Completed
 
-- The Windows PC Helper project is synchronized to
-  `git@github.com:mk5566/PCHelper.git` on `main`.
-- Initial shared-workflow commit: `909264a` (`Initialize PC Helper shared
-  workflow`).
-- A cross-tool collaboration and credential-handling protocol is included in
-  `COLLABORATION.md` and reinforced in `AGENTS.md`.
-- Local machine inventory and working artifacts are ignored by Git.
+- Added and refined Windows 11 agent skills under `.agents/skills/`.
+- Existing `$windows-pc-helper` is now the orchestrator: shared rules, inventory, change ladder, and dispatch table.
+- New skills: `$windows-11-operate`, `$windows-11-optimize`, `$windows-11-troubleshoot`, `$windows-11-maintain`, `$windows-11-security`, `$windows-11-hardware`.
+- Shared references (single home for each fact):
+  - `windows-pc-helper/references/windows-tool-map.md` (Win11 routing)
+  - `windows-pc-helper/references/reject-unproven.md`
+  - `windows-pc-helper/references/sources.md` (official docs, retrieved 2026-08-13)
+- `AGENTS.md` and `README.md` route to the new skills.
 
 ## Verified
 
-- The `mk5566` SSH identity authenticated with GitHub.
-- The target repository was reachable and had no remote `HEAD` reference at
-  setup time.
-- Shareable project files, including hidden files, were scanned for common
-  token and private-key markers with no matches.
+- Each new `SKILL.md` has `name` + `description` frontmatter and a concise procedure body.
+- No inventory, credentials, or machine-private files were added to tracked paths.
+- Research used Microsoft Learn / Microsoft Support / WHCP pages dated through 2026-08-11 (release-health) and 2026-07-14 (requirements). Time-sensitive dates live only in `sources.md`.
 
 ## Constraints
 
-- Never run DISM `/RestoreHealth` or SFC without explicit user acceptance that
-  intentionally removed Defender payloads could be restored.
-- Do not commit inventory data, credentials, keys, tokens, or user-private
-  machine data.
+- Never run DISM `/RestoreHealth` or SFC without explicit user acceptance that intentionally removed Defender payloads could be restored.
+- Do not commit inventory data, credentials, keys, tokens, or user-private machine data.
 - Preserve the user's deliberate Defender-removal configuration.
+- Do not recommend registry cleaners, RAM boosters, debloat packs, driver-updater utilities, or TPM/CPU bypasses.
 
 ## Next action
 
-For a new task, follow `COLLABORATION.md`: read this checkpoint and project
-guidance, inspect Git status, make the smallest scoped change, run the safety
-preflight, update this file, then commit and push the handoff.
+Run `& '.\scripts\Test-RepositorySafety.ps1'`, review the skill diff, then commit the skill and guidance files only (not `inventory/` or `work/`). Push only if the user asks.
 
 ## Open decisions
 
-- None for the initial repository sync.
+- Whether to take the 25H2 enablement package from Windows Update (this PC is 24H2 / 26100).
+- Whether to enable BitLocker after recovery-key storage is planned.

@@ -1,0 +1,78 @@
+---
+name: windows-11-troubleshoot
+description: Diagnose Windows 11 problems with Reliability Monitor, Event Viewer, Task Manager, and other built-in evidence before any repair. Use for crashes, hangs, boot failures, random slowness, app errors, BSOD, or /windows-11-troubleshoot. Do not apply fixes during diagnosis unless the user also asked to repair.
+---
+
+# Windows 11 troubleshoot
+
+Load `windows-pc-helper`. Diagnosis is read-only unless the user also asked for a fix. Do not disable security, reset the network stack, or run DISM/SFC/CHKDSK as step 1.
+
+## 1. Scope the symptom
+
+Restate, in the user’s words: what fails, when it started, how often, what changed just before (update, driver, app, cable, heat), and the impact. Classify **current / intermittent / historical**.
+
+## 2. Cheap evidence first
+
+1. Read `inventory/PC_PROFILE.md` and the Health / CollectionWarnings sections of `inventory/raw/inventory.json`.
+2. Reliability Monitor: `perfmon /rel`. Note the first critical event in the cluster, not only the last.
+3. Recent System errors (last 7 days), grouped — the inventory collector already does this. Re-query if the inventory is stale:
+
+   ```powershell
+   Get-WinEvent -FilterHashtable @{ LogName = 'System'; Level = 1,2; StartTime = (Get-Date).AddDays(-7) } |
+     Group-Object ProviderName, Id | Sort-Object Count -Descending | Select-Object -First 20
+   ```
+
+4. Application log only if the failing app is named.
+5. Task Manager / Resource Monitor **while the symptom is happening** (CPU, disk queue, GPU, commit, the specific process).
+6. Device Manager / `Get-PnpDevice -PresentOnly` for problem codes.
+7. Windows Update history + `Get-HotFix` if the failure began after Patch Tuesday or a feature update.
+
+Do not collect minidumps, WER reports, or traces until the user agrees. They can contain paths and user data. Keep any copy under `inventory/` (gitignored).
+
+## 3. Rank hypotheses
+
+Score by (evidence × user impact) / cost-to-test. Test the cheapest discriminator first.
+
+Typical Windows 11 buckets (use only if evidence fits):
+
+| Bucket | Discriminator |
+|---|---|
+| App or overlay | Fails in one app; Reliability shows that app; clean boot removes it |
+| Driver / firmware | Device problem code; faults start after a driver date; bugcheck `DRIVER_IRQL` / `VIDEO_TDR` |
+| Servicing | Failures start after a KB; CBS errors; pending reboot |
+| Storage | `HealthStatus` not Healthy; `chkdsk /scan` reports problems; disk 100% in Resource Monitor at idle |
+| Power / thermal / Modern Standby | Only on battery or lid close; SleepStudy idle drain; unexpected wake |
+| Memory / commit | Hard faults + commit near limit; not “low free RAM” alone |
+| Network | One adapter or DNS path; `Test-NetConnection` fails; not generic “reset TCP” |
+| Security / VBS conflict | Starts after Memory Integrity on, or third-party hypervisor vs Hyper-V |
+
+On this PC, repeated NDIS 10317 on the **Wi-Fi Direct virtual** adapter is not proof the Intel AX211 user Wi-Fi is broken. Investigate only if the user sees disconnects, cast/hotspot failure, or sleep/resume network loss.
+
+## 4. Isolation tests (still not repairs)
+
+- Reproduce with overlays off (vendor GPU overlay, Game Bar, OEM utilities).
+- Clean boot: System Configuration selective startup, or disable non-Microsoft startup apps only. Re-enable in batches.
+- Safe Mode: firmware/driver vs user-mode.
+- Another user account: per-user vs machine.
+- Wired vs Wi-Fi, or another display: hardware path.
+
+Stop when one test distinguishes the top two hypotheses.
+
+## 5. Report, then maybe repair
+
+Always report:
+
+- observed facts
+- likely interpretation and confidence
+- ruled-out items
+- next action
+- admin / restart needs
+
+If the user wants a fix, hand off:
+
+- servicing / DISM / SFC / CHKDSK / Update → `windows-11-maintain`
+- driver / firmware / device → `windows-11-hardware`
+- TPM / VBS / BitLocker / AV → `windows-11-security`
+- power / startup / “make it faster” after the cause is load → `windows-11-optimize`
+
+Do not run repairs “while we’re in Event Viewer.”

@@ -4,7 +4,7 @@ This Codex project keeps a privacy-filtered understanding of this Windows PC and
 
 ## What is included
 
-- A local Codex skill for Windows inventory, diagnosis, and maintenance.
+- A local orchestrator skill (`windows-pc-helper`) plus Windows 11 skills for operate, optimize, troubleshoot, maintain, security, and x86/x64 hardware.
 - A read-only inventory collector built from Windows PowerShell, CIM, registry inventory, and installed Windows modules.
 - A human-readable PC profile plus JSON/CSV evidence for deeper analysis.
 - Project safeguards that keep normal writes inside this folder and disable network access by default.

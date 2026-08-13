@@ -1,20 +1,38 @@
 ---
 name: windows-pc-helper
-description: Inspect, understand, diagnose, and safely maintain this specific Windows PC. Use for hardware or software inventory, performance, storage, startup, drivers, devices, Windows Update, security, networking, battery, crashes, errors, app problems, cleanup, configuration, or upgrade-readiness requests. Prefer Windows built-in tools and existing installed apps; require user approval before downloads, installs, removals, or system changes.
+description: Inspect, diagnose, and safely maintain this specific Windows PC using local inventory and Windows-native tools. Use for inventory, orientation, or any Windows 11 operate/optimize/troubleshoot/maintain request on this machine. Also use for /windows-pc-helper. Require approval before downloads, installs, removals, or system changes. Dispatch Windows 11 procedures to the sibling skills listed below.
 ---
 
 # Windows PC Helper
 
-Use the local inventory as the baseline, gather current evidence, and choose the least invasive effective action.
+Use the local inventory as the baseline, gather current evidence, and choose the least invasive effective action. This skill is the orchestrator for **this PC**. Load a sibling skill for the procedure; do not restate those procedures here.
+
+## Shared rules (all Windows 11 work)
+
+1. **Built-in first.** Settings, Task Manager, Resource Monitor, Reliability Monitor, Event Viewer, PowerShell/CIM, DISM, SFC, CHKDSK, Storage Sense, Windows Update, `powercfg`, Device Manager, Windows Security. A third-party tool only when it clearly adds a capability or accuracy the built-in tools lack; justify it, prefer Microsoft-endorsed or widely audited open source, and state the trust boundary. Ask before any download.
+2. **Correctness over marketing.** Recommend only changes with documented net benefit. Reject the categories in `references/reject-unproven.md`.
+3. **Evidence, then action.** Separate observed facts, interpretation, recommendations, actions taken, and open questions. Verify after every change.
+4. **Approval before change.** Default is read-only. Before any setting, service, driver, firmware, disk, security, or file change outside this repo: name the target, effect, reversibility, risk, admin need, restart need, and verification check.
+5. **Preserve intentional posture on this PC.** Microsoft Defender was deliberately removed. Do not run DISM `/RestoreHealth` or SFC without explicit acceptance that protected Defender files may return. Do not enable BitLocker until recovery-key storage is planned.
+
+Read `references/windows-tool-map.md` before choosing a diagnostic or repair command. Read `references/sources.md` before stating version, servicing, or platform-requirement facts.
 
 ## Route the request
 
+| User intent | Skill |
+|---|---|
+| Inventory, “what is this PC”, refresh baseline | This skill (inventory workflow) |
+| Editions, Settings, feature updates, daily use, 24H2/25H2/26H1 | `windows-11-operate` |
+| Speed, power, startup, “optimize”, Game Mode, HAGS | `windows-11-optimize` |
+| Crashes, errors, slowness diagnosis, boot problems | `windows-11-troubleshoot` |
+| Windows Update, disk cleanup, DISM/SFC/CHKDSK, backups | `windows-11-maintain` |
+| TPM, Secure Boot, BitLocker, VBS, Memory Integrity, AV, firewall | `windows-11-security` |
+| Drivers, firmware, devices, CPU/GPU/storage compatibility | `windows-11-hardware` |
+
 - **Inventory or orientation:** Run `scripts/Collect-PCInventory.ps1`, then read `inventory/PC_PROFILE.md`, `inventory/BASELINE_ASSESSMENT.md` when present, and the relevant raw table.
-- **Diagnosis:** Read the profile, reproduce or observe the symptom when safe, collect focused Windows evidence, form ranked hypotheses, and test the cheapest discriminating hypothesis first.
+- **Diagnosis:** Read the profile, reproduce or observe the symptom when safe, collect focused Windows evidence, form ranked hypotheses, and test the cheapest discriminating hypothesis first. Then follow `windows-11-troubleshoot`.
 - **Recommendation:** Compare compatibility, impact, cost, reversibility, and risk. Clearly label facts versus inference.
 - **Maintenance or repair:** Propose the exact change first. Act only after approval, then verify the result and record what changed.
-
-Read `references/windows-tool-map.md` when choosing diagnostic commands, evaluating administrator requirements, or considering a repair.
 
 ## Inventory workflow
 
@@ -63,7 +81,7 @@ Before steps 2–6, state the exact target, effect, reversibility, risk, admin r
 - Browse only when current Microsoft or vendor information is needed.
 - Prefer official Microsoft, PC manufacturer, component manufacturer, or application publisher sources.
 - If a new tool is genuinely necessary, explain the capability gap and ask before download or installation.
-- Never recommend registry cleaners, debloat packs, unofficial driver sites, key tools, or opaque optimization scripts.
+- Never recommend the categories in `references/reject-unproven.md` (registry cleaners, RAM boosters, debloat packs, unofficial driver sites, key tools, opaque optimizers).
 
 ## Evidence boundaries
 
