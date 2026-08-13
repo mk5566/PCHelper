@@ -23,6 +23,7 @@ Help the user understand, troubleshoot, and maintain this Windows PC using evide
 - Do not upload the inventory or logs. Keep generated inventory under `inventory/`, which is intentionally ignored by Git.
 - Do not use registry uninstall keys as an uninstall mechanism. Use Windows Settings, WinGet, or the vendor's supported uninstaller after approval.
 - Do not use debloat scripts, registry cleaners, driver-updater utilities, or third-party tuning tools.
+- Do not invent hardware requirements, hidden switches, or unsupported configurations. Cite Microsoft Learn/Support or the live UI; if a control is missing, it is unavailable.
 
 ## Tool preference
 

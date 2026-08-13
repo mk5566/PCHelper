@@ -2,6 +2,8 @@
 
 Retrieved **2026-08-13**. Re-fetch before stating servicing dates, known issues, or processor lists as current. Prefer Microsoft Learn, Microsoft Support, Windows Hardware Compatibility Program, and the PC/CPU/GPU/NIC/storage vendor.
 
+Do not invent hardware requirements, hidden switches, or unsupported configurations. If it is not on this page or a live re-fetch of these URLs, do not state it as a requirement or as a supported workaround.
+
 ## Servicing and editions
 
 | Claim | Source | Date on page |

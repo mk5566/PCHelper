@@ -10,7 +10,7 @@ Use the local inventory as the baseline, gather current evidence, and choose the
 ## Shared rules (all Windows 11 work)
 
 1. **Built-in first.** Settings, Task Manager, Resource Monitor, Reliability Monitor, Event Viewer, PowerShell/CIM, DISM, SFC, CHKDSK, Storage Sense, Windows Update, `powercfg`, Device Manager, Windows Security. A third-party tool only when it clearly adds a capability or accuracy the built-in tools lack; justify it, prefer Microsoft-endorsed or widely audited open source, and state the trust boundary. Ask before any download.
-2. **Correctness over marketing.** Recommend only changes with documented net benefit. Reject the categories in `references/reject-unproven.md` (including service killers and unproven “gaming mode” scripts).
+2. **Correctness over marketing.** Recommend only changes with documented net benefit. Reject the categories in `references/reject-unproven.md` (including service killers and unproven “gaming mode” scripts). **Do not invent hardware requirements, hidden switches, or unsupported configurations.** If a control is not on the Settings/MMC surface or in `references/sources.md`, say it is unknown or re-fetch Learn — do not invent a registry/BCD/labconfig workaround.
 3. **Non-destructive modification.** Before registry, services, drivers, scheduled tasks, BCD, or system files: follow `references/non-destructive-change.md` — restore point or backup, exact impact, prefer a change that cannot break unrelated apps/security/hardware, written rollback. Never call a change “safe” if it can leave the system inconsistent or less secure.
 4. **Visual, whole-system guidance.** User-facing steps follow `references/visual-guidance.md`: full Settings path, describe the live window (left nav, heading, controls top to bottom, dialogs). Capture the user’s real UI when possible. Never generate fake Settings screenshots.
 5. **Scope.** Everyday tasks; measured performance; privacy/security configuration the user asked for; updates and drivers; **storage and power optimization**; **common troubleshooting**. Full list: `visual-guidance.md` “Scope this project covers.”
@@ -87,6 +87,7 @@ Before steps 2–6, state the exact target, effect, reversibility, risk, admin r
 
 ## Evidence boundaries
 
+- Do not invent hardware requirements, hidden switches, or unsupported configurations. Quote Learn/Support or the live UI. If the HAGS toggle, an edition feature, or a CPU/TPM requirement is absent, it is unsupported on this device — do not add `HwSchMode`, labconfig, or “secret” BCD/power-plan keys.
 - Do not claim a root cause from correlation alone.
 - Do not treat a clean summary as proof that no fault exists.
 - Do not expose or store credentials, recovery material, user content, precise network identifiers, or device serials.
