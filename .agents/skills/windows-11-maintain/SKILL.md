@@ -5,11 +5,11 @@ description: Maintain Windows 11 with Windows Update, Storage Sense, DISM, SFC, 
 
 # Windows 11 maintain
 
-Load `windows-pc-helper`. Read `windows-pc-helper/references/sources.md` for servicing facts. Propose every repair; act only after approval.
+Load `windows-pc-helper`. Read `windows-pc-helper/references/sources.md` for servicing facts. User-facing clicks follow `visual-guidance.md`. DISM, SFC, CHKDSK `/f`/`/r`, optional features, and component cleanup follow `non-destructive-change.md` (restore point + written rollback). Propose every repair; act only after approval. Never call RestoreHealth or `chkdsk /r` “safe.”
 
 ## Windows Update
 
-1. Settings > Windows Update: status, last successful time, pause state, optional updates.
+1. Settings > **Windows Update** (`ms-settings:windowsupdate`). Left nav last item highlighted. Main pane: status sentence (“You’re up to date” or a pending KB name), last-checked time, **Check for updates**, **Pause for 1 week**. **More options**: Update history, Advanced options (optional updates, Delivery Optimization, active hours).
 2. `Get-HotFix | Sort-Object InstalledOn -Descending | Select-Object -First 15`
 3. Pending reboot (inventory already checks these):
 
@@ -27,8 +27,8 @@ Load `windows-pc-helper`. Read `windows-pc-helper/references/sources.md` for ser
 
 Order:
 
-1. Settings > System > Storage: category breakdown. Confirm free space (this PC last showed ~83% free on C:).
-2. Storage Sense (`ms-settings:storagepolicies`): temporary files, Recycle Bin, Downloads only if the user accepts that rule, cloud-file dehydration only if they use Files On-Demand.
+1. Settings > System > **Storage** (`ms-settings:storagesense`). Title **Storage**. Top: **Local Disk (C:)** usage bar and free/total. Category rows (Installed apps, Temporary files, Other, …). This PC last showed ~83% free.
+2. Open **Storage Sense** (`ms-settings:storagepolicies`). Toggle at top. Then: Cleanup of temporary files; Automatic User content cleanup; Recycle Bin / Downloads age dropdowns (Downloads only if the user accepts); locally available cloud content. **Run Storage Sense now** at the bottom.
 3. Delivery Optimization cache: Settings > Windows Update > Advanced > Delivery Optimization > Advanced.
 4. `DISM /Online /Cleanup-Image /AnalyzeComponentStore` then `/StartComponentCleanup` if reclaimable packages are large. Add `/ResetBase` only when the user accepts they cannot uninstall already-installed updates.
 5. Empty Recycle Bin / user Downloads only with confirmation. Do not delete WinSxS, Prefetch, or installer folders by hand.
@@ -62,11 +62,7 @@ Never format or shrink/extend partitions without a backup confirmation and an ex
 
 ## Backup and restore points
 
-Before disk repair, feature updates, or firmware:
-
-- Confirm the user has a backup they trust (File History, vendor recovery, or another copy). Do not invent a backup.
-- System Restore: create a restore point only with approval; it is not a substitute for user-data backup.
-- Do not enable BitLocker as a “maintenance” step — that is `windows-11-security` and needs recovery-key planning.
+Follow `non-destructive-change.md`. Before disk repair, feature updates, or firmware: confirm a user-data backup the user already has (do not invent one) **and** create a System Restore point. System Restore is not a document backup. Do not offer **Reset this PC** (Settings > System > Recovery) as cleanup. Do not enable BitLocker as maintenance (`windows-11-security`).
 
 ## Verify
 

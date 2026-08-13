@@ -5,7 +5,7 @@ description: Diagnose Windows 11 problems with Reliability Monitor, Event Viewer
 
 # Windows 11 troubleshoot
 
-Load `windows-pc-helper`. Diagnosis is read-only unless the user also asked for a fix. Do not disable security, reset the network stack, or run DISM/SFC/CHKDSK as step 1.
+Load `windows-pc-helper`. Diagnosis is read-only unless the user also asked for a fix. Describe each tool with `visual-guidance.md`. Do not disable security, reset the network stack, or run DISM/SFC/CHKDSK as step 1. Isolation that disables services/startup still needs a restore point if it leaves those disabled (`non-destructive-change.md`).
 
 ## 1. Scope the symptom
 
@@ -14,8 +14,8 @@ Restate, in the user’s words: what fails, when it started, how often, what cha
 ## 2. Cheap evidence first
 
 1. Read `inventory/PC_PROFILE.md` and the Health / CollectionWarnings sections of `inventory/raw/inventory.json`.
-2. Reliability Monitor: `perfmon /rel`. Note the first critical event in the cluster, not only the last.
-3. Recent System errors (last 7 days), grouped — the inventory collector already does this. Re-query if the inventory is stale:
+2. Reliability Monitor: Win+R → `perfmon /rel` → **Reliability Monitor** window. Top: stability index chart (days). Red circles = critical, yellow = warnings, blue = information. Click the day the user noticed the problem; the **Reliability details** list at the bottom shows source and event. Open the first critical in that cluster, not only the last.
+3. Event Viewer: Start → **Event Viewer** or `eventvwr.msc`. Left tree: **Windows Logs > System**. Action pane → **Filter Current Log** → Event level: Critical and Error, Logged: Last 7 days. Or re-query if inventory is stale:
 
    ```powershell
    Get-WinEvent -FilterHashtable @{ LogName = 'System'; Level = 1,2; StartTime = (Get-Date).AddDays(-7) } |

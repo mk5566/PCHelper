@@ -39,6 +39,14 @@ This PC’s last inventory (2026-08-13) is **24H2, build 26100**, Windows 11 Hom
 | WHCP: systems and drivers tested with HLK; look up certified products rather than unsigned packs | [WHCP](https://learn.microsoft.com/en-us/windows-hardware/design/compatibility/) |
 | HAGS appears only when GPU + WDDM 2.7+ driver advertise it (Settings > System > Display > Graphics > default graphics settings) | Microsoft Q&A guidance consistent with WDDM 2.7 requirement; confirm on-device, do not force via registry |
 
+## Recovery
+
+| Claim | Source | Retrieved |
+|---|---|---|
+| System Restore reverts system files, registry, and installed programs to a restore point; not personal files | [System Restore](https://support.microsoft.com/windows/system-restore) | 2026-08-13 |
+| Create a point: Start → “Create a restore point” → System Protection tab → Create… | [System Protection](https://support.microsoft.com/windows/system-protection) | 2026-08-13 |
+| Reset this PC lives at Settings > System > Recovery; it is a reinstall, not a tweak rollback | [Reset your PC](https://support.microsoft.com/windows/reset-your-pc) | 2026-08-13 |
+
 ## Discarded as sources
 
 Forum tweak lists, TenForums/ElevenForum registry packs (unless they only cite a Microsoft doc), YouTube “FPS boost”, OEM-blog copies of those lists, and any page that does not name a primary Microsoft or hardware-vendor document.

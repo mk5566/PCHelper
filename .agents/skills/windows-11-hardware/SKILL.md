@@ -5,7 +5,7 @@ description: Diagnose and update x86/x64 Windows 11 hardware: drivers, firmware,
 
 # Windows 11 hardware (x86/x64)
 
-Load `windows-pc-helper`. Read `windows-pc-helper/references/reject-unproven.md` before any driver recommendation.
+Load `windows-pc-helper`. Read `reject-unproven.md` before any driver recommendation. Driver/firmware installs follow `non-destructive-change.md` (restore point + Device Manager Roll Back). Describe Device Manager and Windows Update optional-driver pages with `visual-guidance.md`. Never call a BIOS flash “safe.”
 
 ## This machine (inventory 2026-08-13)
 
@@ -24,7 +24,7 @@ Refresh inventory after any driver or BIOS change.
 
 ## Driver source order
 
-1. **Windows Update** optional driver if it matches the device and the user wants Microsoft-distributed.
+1. **Windows Update** optional driver: Settings > Windows Update > **Advanced options** > **Optional updates** > **Driver updates**. Expand the list; install only the one package that matches the named device.
 2. **PC OEM** (here: Lenovo Support for 83DC / IdeaPad Slim 5 16IMH9) for BIOS, EC, chipset, and laptop-specific power/hotkey/audio.
 3. **Component vendor** for GPU, Wi-Fi, storage when OEM is behind or the issue is IHV-specific: Intel (Arc, AX211, chipset), Western Digital / SanDisk for the SN740.
 4. **Microsoft Update Catalog** for a *specific* WHCP-signed KB the user or a diagnostic named.
@@ -37,7 +37,7 @@ Prefer WHCP-signed packages ([Windows Hardware Compatibility Program](https://le
 
 1. `Get-PnpDevice -PresentOnly | Where-Object { $_.Status -ne 'OK' -or ($_.Problem -and $_.Problem -ne 0) }`
 2. `Get-CimInstance Win32_PnPSignedDriver` for the device class — record version and date, not INF hunting in chat.
-3. Identify the hardware ID in Device Manager only as far as needed to pick the OEM/IHV package. Do not store serials.
+3. Device Manager (`devmgmt.msc`): tree by class. Yellow bang = problem. Right-click device → **Properties** → **General** (status text) and **Driver** (Provider, Date, Version, **Update Driver**, **Roll Back Driver**, Uninstall). Use Hardware Ids on the Details tab only to pick the OEM/IHV package. Do not store serials.
 4. Propose **one** package: name, version, source URL (official), what it replaces, restart, how to roll back (Device Manager Roll Back, or OEM previous version).
 5. After approval, install that package only. Verify: device Status OK, same or newer signed version, symptom gone, no new Reliability Monitor criticals.
 
@@ -60,4 +60,4 @@ Firmware (BIOS/EC): OEM instructions, charged battery + AC, no power loss. Confi
 
 ## Rollback
 
-Device Manager > device > Properties > Driver > Roll Back Driver. If greyed out, reinstall the previously known-good OEM/IHV version. Keep the installer the user approved.
+Device Manager → device → Properties → **Driver** tab → **Roll Back Driver** (confirm dialog). If greyed out, reinstall the previously known-good OEM/IHV version. Keep the installer the user approved. System Restore is the fallback if roll-back is unavailable.

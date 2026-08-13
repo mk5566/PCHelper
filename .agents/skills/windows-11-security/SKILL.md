@@ -5,7 +5,7 @@ description: Assess and change Windows 11 security posture using official contro
 
 # Windows 11 security
 
-Load `windows-pc-helper`. Default is report-only. Any enable/disable needs a named control, impact, reversibility, and approval.
+Load `windows-pc-helper`. Default is report-only. Describe Windows Security and Privacy pages with `visual-guidance.md`. Any enable/disable of AV, BitLocker, VBS, Memory Integrity, firewall, BCD, or services follows `non-destructive-change.md` and is **never** labeled “safe.” Approval required.
 
 ## Baseline on this PC (inventory 2026-08-13)
 
@@ -54,8 +54,9 @@ If `Get-Tpm` is thin, `tpmtool getdeviceinformation` is the inventory fallback. 
 
 New Windows 11 installs turn VBS and HVCI (Memory Integrity) on when hardware allows. Cost is real (some latency, plus third-party hypervisor conflicts). Measure before disabling.
 
-- Windows Security > Device security > Core isolation > Memory Integrity.
-- Smart App Control: Windows Security > App & browser control. Evaluation → On, or Off. **Off is not casually reversible** (typically reset/reimage). Do not toggle it as a tweak.
+- Open Settings > Privacy & security > **Windows Security** > **Open Windows Security**. Left sidebar: Virus & threat protection, Account protection, Firewall & network protection, App & browser control, **Device security**, Device performance & health, Family options. On this PC, Virus & threat protection will not show an active Microsoft Defender product — that is expected.
+- Device security → **Core isolation** (link) → **Memory integrity** toggle. A restart banner appears if you change it.
+- Smart App Control: sidebar **App & browser control** → **Smart App Control settings**. Evaluation → On, or Off. **Off is not casually reversible** (typically reset/reimage). Do not toggle it as a tweak.
 - Credential Guard / Memory Integrity / Hyper-V block many third-party hypervisors (KB3204980). If the user needs those, explain the trade; do not silently disable VBS.
 - `hypervisorlaunchtype Off` does not always stop the hypervisor when HVCI or a WDAC/SAC policy is enforcing.
 
@@ -69,4 +70,4 @@ Do not disable Secure Boot, VBS, or Memory Integrity for FPS or as a first diagn
 
 ## If the user wants a change
 
-State: exact setting, UI or command, what it protects or removes, how to undo, admin/restart, verification (`Get-Tpm`, `Confirm-SecureBootUEFI`, Security Center, `Get-BitLockerVolume` without key material). Then wait.
+State: exact setting, UI path from `visual-guidance.md`, what it protects or removes, restore-point evidence, how to undo, admin/restart, verification (`Get-Tpm`, `Confirm-SecureBootUEFI`, Security Center, `Get-BitLockerVolume` without key material). Then wait.

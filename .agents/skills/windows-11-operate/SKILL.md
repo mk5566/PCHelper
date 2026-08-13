@@ -1,11 +1,11 @@
 ---
 name: windows-11-operate
-description: Operate Windows 11 correctly across Home, Pro, Pro Education, Pro for Workstations, Enterprise, Education, SE, and LTSC. Covers Settings vs Control Panel, feature updates (24H2, 25H2 enablement package, 26H1 new-silicon only), accounts, display, and daily configuration. Use when the user asks how to use Windows 11, which edition they have, whether to take 25H2/26H1, or runs /windows-11-operate.
+description: Operate Windows 11 correctly across Home, Pro, Pro Education, Pro for Workstations, Enterprise, Education, SE, and LTSC. Covers Settings vs Control Panel, everyday tasks, privacy toggles, feature updates (24H2, 25H2 enablement package, 26H1 new-silicon only), accounts, and display. Use when the user asks how to use Windows 11, which edition they have, whether to take 25H2/26H1, privacy settings, or runs /windows-11-operate.
 ---
 
 # Windows 11 operate
 
-Load `windows-pc-helper` first. Read `windows-pc-helper/references/sources.md` before stating version or edition facts. Re-fetch Learn release-health if the claim is date-sensitive.
+Load `windows-pc-helper` first. Read `windows-pc-helper/references/sources.md` before stating version or edition facts. Write every click-path with `windows-pc-helper/references/visual-guidance.md`. Re-fetch Learn release-health if the claim is date-sensitive.
 
 ## Identify the device
 
@@ -44,16 +44,25 @@ Pause updates only from Settings (max 35 days). Do not hide KBs without a named 
 
 ## Settings first
 
-Use Settings (`ms-settings:`) for power, display, apps, accounts, Windows Update, storage, and privacy. Open a Control Panel applet only when Settings has no equivalent (some BitLocker, power-plan, and device-manager deep links).
+Open **Start > Settings** (gear). Left nav stays visible. Prefer a named path over the Search box. Control Panel only when Settings has no equivalent (BitLocker To Go on Pro+, some power-plan links, Device Manager).
 
-Daily tasks:
+### Everyday surfaces (describe the whole pane)
 
-- Display / scale / refresh: Settings > System > Display. HDR and Auto HDR need an HDR panel.
-- Snap three-column layouts need ≥1920 effective pixels.
-- Accounts: Settings > Accounts. Do not collect or store MSA details.
-- Optional features / Windows capabilities: Settings > System > Optional features, or native `Dism.exe /Online /Get-Features`. Elevation required. Do not remove Print to PDF, WCF, .NET 4 Advanced Services, or Windows Search on this PC without naming the lost function.
-- WSL: `wsl --status`. This PC does not have WSL; install only after approval (`wsl --install`).
+- **Display** — Settings > System > Display (`ms-settings:display`). Main pane title **Display**. Top: brightness slider (laptops), Night light row. Then **Scale & layout**: Scale dropdown, Display resolution, Display refresh rate. **Multiple displays** if more than one monitor (this PC has seen BenQ + LG HDR 4K). HDR / Auto HDR rows appear only on an HDR-capable panel. **Graphics** at the bottom opens the per-app GPU page. Three-column Snap needs ≥1920 effective pixels (Settings > System > Multitasking > Snap).
+- **About** — Settings > System > About. **Windows specifications** lists Edition, Version, OS build. **Related links → Advanced system settings** opens the old System Properties dialog (use this only when System Protection or performance visual effects need that dialog).
+- **Accounts** — Settings > Accounts. Your info, Sign-in options, Email & accounts. Do not collect or store MSA details.
+- **Default apps** — Settings > Apps > Default apps. Search an app or a file type (`.pdf`). Changing a default is reversible on the same page.
+- **Optional features** — Settings > System > Optional features. Installed list + **View features**. **More Windows features** opens `OptionalFeatures.exe` (legacy checklist; elevation). Do not remove Print to PDF, WCF, .NET 4 Advanced Services, or Windows Search on this PC without naming the lost function.
+- **WSL** — `wsl --status`. Not installed here; `wsl --install` only after approval.
+
+### Privacy (everyday, not AV)
+
+Settings > **Privacy & security** (`ms-settings:privacy`). Main pane groups: **Security** (opens Windows Security — that is `windows-11-security`), **Windows permissions** (General advertising/launch-tracking toggles, Speech, Inking & typing, Diagnostics & feedback, Activity history, Search), then **App permissions** (Location, Camera, Microphone, …). Change one permission the user named. Do not apply a “privacy pack” `.reg`. Diagnostics: **Required** vs **Optional** diagnostic data; sending less optional data is supported; turning off required diagnostics is not offered on Home.
+
+## Feature-update UI
+
+Settings > **Windows Update** (last item, left nav). Center: status sentence, **Check for updates**, optional **Download and install Windows 11, version 25H2**. **Pause for 1 week** under More options. Pause max is five weeks via the extra pause steps. Update history is a subpage, not a different app.
 
 ## Configuration changes
 
-Follow the `windows-pc-helper` change ladder. Prefer a Settings toggle the user can reverse. Do not ship `.reg` files for options that exist in Settings.
+Follow the `windows-pc-helper` change ladder. Prefer a Settings toggle the user can reverse. Do not ship `.reg` files for options that exist in Settings. Registry/service/optional-feature changes require `non-destructive-change.md`.
