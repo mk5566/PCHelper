@@ -35,4 +35,4 @@ Commit this follow-up on `main`. Push only if the user asks.
 
 - Whether to take the 25H2 enablement package from Windows Update (this PC is 24H2 / 26100).
 - Whether to enable BitLocker after recovery-key storage is planned.
-- None for the skill-scope brief. Principle 5 is complete. Added: do not invent hardware requirements, hidden switches, or unsupported configurations.
+- None for the skill-scope brief. Added: surface risk level and required privileges on every action.

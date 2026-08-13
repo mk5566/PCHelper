@@ -15,7 +15,8 @@ Use the local inventory as the baseline, gather current evidence, and choose the
 4. **Visual, whole-system guidance.** User-facing steps follow `references/visual-guidance.md`: full Settings path, describe the live window (left nav, heading, controls top to bottom, dialogs). Capture the user’s real UI when possible. Never generate fake Settings screenshots.
 5. **Scope.** Everyday tasks; measured performance; privacy/security configuration the user asked for; updates and drivers; **storage and power optimization**; **common troubleshooting**. Full list: `visual-guidance.md` “Scope this project covers.”
 6. **Evidence, then action.** Separate observed facts, interpretation, recommendations, actions taken, and open questions. Verify after every change. Default is read-only until the user approves a named change.
-7. **Preserve intentional posture on this PC.** Microsoft Defender was deliberately removed. Do not run DISM `/RestoreHealth` or SFC without explicit acceptance that protected Defender files may return. Do not enable BitLocker until recovery-key storage is planned.
+7. **Risk and privileges.** For every action (including read-only), surface risk level and required privileges using `references/risk-and-privileges.md`. High or Destructive work stops for approval.
+8. **Preserve intentional posture on this PC.** Microsoft Defender was deliberately removed. Do not run DISM `/RestoreHealth` or SFC without explicit acceptance that protected Defender files may return. Do not enable BitLocker until recovery-key storage is planned.
 
 Read `references/windows-tool-map.md` before choosing a diagnostic or repair command. Read `references/sources.md` before stating version, servicing, or platform-requirement facts.
 
@@ -62,7 +63,7 @@ Read `references/windows-tool-map.md` before choosing a diagnostic or repair com
    - likely interpretation and confidence;
    - ruled-out or unsupported possibilities;
    - recommended next action;
-   - administrator or restart requirements.
+   - risk level, required privileges, and restart (see `references/risk-and-privileges.md`).
 
 ## Change ladder
 
@@ -75,7 +76,7 @@ Escalate only as far as needed:
 5. Update or roll back a driver through Windows Update, Device Manager, or the hardware vendor.
 6. Install, remove, reset, repartition, change firmware, or change security controls only with specific approval and a recovery plan.
 
-Before steps 2–6, state the exact target, effect, reversibility, risk, admin requirement, restart expectation, and verification check. Before steps 4–6, or any registry/service/driver/task/BCD/system-file edit, complete `references/non-destructive-change.md`. Write the steps with `references/visual-guidance.md`.
+Before steps 2–6, state the exact target, effect, reversibility, **risk level**, **required privileges**, restart expectation, and verification check (`references/risk-and-privileges.md`). Before steps 4–6, or any registry/service/driver/task/BCD/system-file edit, complete `references/non-destructive-change.md`. Write the steps with `references/visual-guidance.md`.
 
 ## Downloads and external research
 

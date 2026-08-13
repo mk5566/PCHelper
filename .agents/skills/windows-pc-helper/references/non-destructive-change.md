@@ -2,7 +2,7 @@
 
 Applies before any change that touches the **registry, services, drivers, scheduled tasks, boot configuration (BCD), or system files**. Settings toggles that Windows exposes in the Settings app still need approval and a stated rollback, but they do not require a restore point unless they flip one of those layers (for example Memory Integrity, BitLocker, optional features).
 
-Never call a change **“safe”** if it can leave the system inconsistent, less secure, or harder to boot.
+Never call a change **“safe”** if it can leave the system inconsistent, less secure, or harder to boot. Label every step with risk and privileges (`risk-and-privileges.md`).
 
 ## Before the change (required)
 
