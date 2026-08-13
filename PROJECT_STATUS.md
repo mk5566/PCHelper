@@ -29,4 +29,4 @@ Native `Dism.exe` successfully enumerates optional features and reports the comp
 
 ## Next checkpoint
 
-No immediate Defender action remains. Do not enable BitLocker until recovery-key storage has been explicitly planned.
+No immediate Defender action remains. **BitLocker: user declined for now** (2026-08-13); leave C: decrypted. 25H2 enablement package is **not** on disk yet (still 24H2 / 26100.9168). Do not push until asked.
