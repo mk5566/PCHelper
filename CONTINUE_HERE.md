@@ -11,6 +11,7 @@ Updated: 2026-08-13 (Asia/Taipei)
   - `windows-pc-helper/references/visual-guidance.md` — Settings chrome, full-page descriptions, no generated fake UI
 - Reject list now includes service killers and unproven “gaming mode” scripts.
 - Specialist skills point at those references and include 24H2/25H2 control names.
+- Principle 5 scope is complete: storage optimization, power optimization, and common troubleshooting are explicit in-scope items (maintain / optimize / troubleshoot).
 
 ## Verified
 
@@ -34,4 +35,4 @@ Commit this follow-up on `main`. Push only if the user asks.
 
 - Whether to take the 25H2 enablement package from Windows Update (this PC is 24H2 / 26100).
 - Whether to enable BitLocker after recovery-key storage is planned.
-- Principle 5 in the user brief was still truncated after “update and driver management”; remaining bullets can be added when provided.
+- None for the skill-scope brief. Principle 5 is complete: everyday tasks, working performance tuning, privacy/security configuration, updates and drivers, storage and power optimization, and common troubleshooting.

@@ -13,7 +13,7 @@ Use the local inventory as the baseline, gather current evidence, and choose the
 2. **Correctness over marketing.** Recommend only changes with documented net benefit. Reject the categories in `references/reject-unproven.md` (including service killers and unproven “gaming mode” scripts).
 3. **Non-destructive modification.** Before registry, services, drivers, scheduled tasks, BCD, or system files: follow `references/non-destructive-change.md` — restore point or backup, exact impact, prefer a change that cannot break unrelated apps/security/hardware, written rollback. Never call a change “safe” if it can leave the system inconsistent or less secure.
 4. **Visual, whole-system guidance.** User-facing steps follow `references/visual-guidance.md`: full Settings path, describe the live window (left nav, heading, controls top to bottom, dialogs). Capture the user’s real UI when possible. Never generate fake Settings screenshots.
-5. **Scope.** Everyday tasks, measured performance, privacy/security configuration the user asked for, updates, and drivers. Stay inside `visual-guidance.md` “Scope this project covers.”
+5. **Scope.** Everyday tasks; measured performance; privacy/security configuration the user asked for; updates and drivers; **storage and power optimization**; **common troubleshooting**. Full list: `visual-guidance.md` “Scope this project covers.”
 6. **Evidence, then action.** Separate observed facts, interpretation, recommendations, actions taken, and open questions. Verify after every change. Default is read-only until the user approves a named change.
 7. **Preserve intentional posture on this PC.** Microsoft Defender was deliberately removed. Do not run DISM `/RestoreHealth` or SFC without explicit acceptance that protected Defender files may return. Do not enable BitLocker until recovery-key storage is planned.
 
@@ -25,9 +25,9 @@ Read `references/windows-tool-map.md` before choosing a diagnostic or repair com
 |---|---|
 | Inventory, “what is this PC”, refresh baseline | This skill (inventory workflow) |
 | Editions, Settings, feature updates, daily use, 24H2/25H2/26H1 | `windows-11-operate` |
-| Speed, power, startup, “optimize”, Game Mode, HAGS | `windows-11-optimize` |
-| Crashes, errors, slowness diagnosis, boot problems | `windows-11-troubleshoot` |
-| Windows Update, disk cleanup, DISM/SFC/CHKDSK, backups | `windows-11-maintain` |
+| Speed, **power optimization**, startup, “optimize”, Game Mode, HAGS | `windows-11-optimize` |
+| **Common troubleshooting**: crashes, errors, slowness diagnosis, boot problems | `windows-11-troubleshoot` |
+| Windows Update, **storage optimization**, DISM/SFC/CHKDSK, backups | `windows-11-maintain` |
 | TPM, Secure Boot, BitLocker, VBS, Memory Integrity, AV, firewall | `windows-11-security` |
 | Drivers, firmware, devices, CPU/GPU/storage compatibility | `windows-11-hardware` |
 

@@ -1,6 +1,6 @@
 ---
 name: windows-11-maintain
-description: Maintain Windows 11 with Windows Update, Storage Sense, DISM, SFC, CHKDSK, and supported backups. Use for cleanup, component-store repair, disk health, pending reboots, feature updates as maintenance, or /windows-11-maintain. Scan before repair. On this PC, DISM RestoreHealth and SFC need explicit acceptance that removed Defender files may return.
+description: Maintain Windows 11 with Windows Update, storage optimization (Storage Sense, Temporary files), DISM, SFC, CHKDSK, and supported backups. Use for cleanup, free up disk space, component-store repair, disk health, pending reboots, feature updates as maintenance, or /windows-11-maintain. Scan before repair. On this PC, DISM RestoreHealth and SFC need explicit acceptance that removed Defender files may return.
 ---
 
 # Windows 11 maintain

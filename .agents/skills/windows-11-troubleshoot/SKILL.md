@@ -1,6 +1,6 @@
 ---
 name: windows-11-troubleshoot
-description: Diagnose Windows 11 problems with Reliability Monitor, Event Viewer, Task Manager, and other built-in evidence before any repair. Use for crashes, hangs, boot failures, random slowness, app errors, BSOD, or /windows-11-troubleshoot. Do not apply fixes during diagnosis unless the user also asked to repair.
+description: Common Windows 11 troubleshooting with Reliability Monitor, Event Viewer, Task Manager, and other built-in evidence before any repair. Use for crashes, hangs, boot failures, random slowness, app errors, BSOD, “something is wrong,” or /windows-11-troubleshoot. Do not apply fixes during diagnosis unless the user also asked to repair.
 ---
 
 # Windows 11 troubleshoot

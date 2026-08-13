@@ -1,6 +1,6 @@
 ---
 name: windows-11-optimize
-description: Evidence-based Windows 11 performance, power, startup, and graphics tuning on x86/x64. Use when the user says the PC is slow, wants more battery or FPS, asks to disable startup apps, mentions Game Mode, HAGS, power mode, or runs /windows-11-optimize. Reject registry cleaners, RAM boosters, debloat packs, and unproven tweaks.
+description: Evidence-based Windows 11 performance, power optimization, startup, and graphics tuning on x86/x64. Use when the user says the PC is slow, wants more battery or FPS, asks to optimize power or Energy saver, disable startup apps, mentions Game Mode, HAGS, power mode, or runs /windows-11-optimize. Reject registry cleaners, RAM boosters, debloat packs, and unproven tweaks.
 ---
 
 # Windows 11 optimize

@@ -25,6 +25,7 @@ Native `Dism.exe` successfully enumerates optional features and reports the comp
 - Refined `$windows-pc-helper` into an orchestrator with shared reject-list and dated official sources.
 - Added `$windows-11-operate`, `$windows-11-optimize`, `$windows-11-troubleshoot`, `$windows-11-maintain`, `$windows-11-security`, `$windows-11-hardware`.
 - Encoded non-destructive change (restore point before registry/services/drivers/tasks/BCD/system files), visual whole-Settings guidance, and expanded reject list (service killers, unproven gaming-mode scripts).
+- Principle 5 scope complete: everyday tasks, working performance tuning, privacy/security, updates/drivers, storage and power optimization, common troubleshooting.
 
 ## Next checkpoint
 

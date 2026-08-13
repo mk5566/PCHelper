@@ -53,6 +53,14 @@ Search box at the top of Settings filters pages; prefer a named path over search
 
 ## Scope this project covers
 
-In scope: everyday Settings tasks, evidence-based performance, privacy/security **configuration the user asked for**, Windows Update and driver management, diagnosis, and reversible maintenance.
+In scope (principle 5, complete):
+
+- Everyday user tasks (Settings, accounts, display, defaults)
+- Performance tuning that actually works (measure first; see `windows-11-optimize`)
+- Privacy and security **configuration the user asked for** (`windows-11-operate`, `windows-11-security`)
+- Update and driver management (`windows-11-maintain`, `windows-11-hardware`)
+- Storage optimization (Storage Sense, Temporary files, Delivery Optimization cache — not cleaners)
+- Power optimization (Power mode, Energy saver, screen/sleep, Energy recommendations, `powercfg` reports)
+- Common troubleshooting (Reliability Monitor, Event Viewer, isolation tests — `windows-11-troubleshoot`)
 
 Out of scope unless the user names the risk and approves: firmware flash, partition/format, BitLocker enable without recovery-key plan, DISM RestoreHealth/SFC on this PC, mass service/task disable, unsupported TPM/CPU installs.
