@@ -31,4 +31,4 @@ Native `Dism.exe` successfully enumerates optional features and reports the comp
 
 ## Next checkpoint
 
-No immediate Defender action remains. **BitLocker: user declined for now** (2026-08-13); leave C: decrypted. 25H2 enablement package is **not** on disk yet (still 24H2 / 26100.9168). Do not push until asked.
+No immediate Defender action remains. **BitLocker: user declined for now** (2026-08-13); leave C: decrypted. The 25H2 enablement package is **not** installed yet (still 24H2 / 26100.9168). The user authorized the reviewed cross-tool handoff to be pushed to `origin/main` on 2026-08-13.
